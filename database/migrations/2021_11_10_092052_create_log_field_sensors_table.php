@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFieldSensorsTable extends Migration
+class CreateLogFieldSensorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateFieldSensorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('field_sensors', function (Blueprint $table) {
+        Schema::create('log_sensors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sensor_id')->comment('センサーID')->constrained('sensors')->cascadeOnDelete();
-            $table->foreignId('user_id')->comment('ユーザーID')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('field_id')->comment('圃場ID')->constrained('fields')->cascadeOnDelete();
-            $table->string('name')->comment('センサー名');
+            $table->dateTime('recorded_at')->comment('記録日時');
+            $table->float('value')->comment('値');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateFieldSensorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('field_sensors');
+        Schema::dropIfExists('log_field_sensors');
     }
 }
