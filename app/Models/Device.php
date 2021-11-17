@@ -10,6 +10,8 @@ class Device extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id', // ユーザーID
+        'field_id', // 圃場ID
         'name', // 機器名
         'icon', // アイコン
         'description', // 使用目的

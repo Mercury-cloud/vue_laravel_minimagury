@@ -22,8 +22,10 @@ class CreateSensorsTable extends Migration
             $table->float('precision')->comment('精度');
             $table->enum('precision_type', ['float', 'int'])->nullable()->comment('精度種類');
             $table->string('unit')->comment('単位');
+            $table->enum('aggregation_type', ['single', 'double', 'triple'])->default('single')->comment('集計タイプ　3つ同時に集計まである');
             $table->string('latest_value')->nullable()->comment('最新のログの値');
-            $table->string('latest_value2')->nullable()->comment('最新のログの値2');
+            $table->string('latest_value2')->nullable()->comment('最新のログの値2 ');
+            $table->string('latest_value3')->nullable()->comment('最新のログの値3 ');
             $table->timestamps();
         });
     }
