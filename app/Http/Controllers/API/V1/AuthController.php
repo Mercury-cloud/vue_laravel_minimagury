@@ -13,9 +13,6 @@ class AuthController extends Controller
     /**
      * ログイン
      */
-    public function test(Request $request) {
-        dd('test');
-    }
     public function login(LoginRequest $request) {
         $credential = $request->only(['email', 'password']);
         if (Auth::attempt($credential, false)) {
