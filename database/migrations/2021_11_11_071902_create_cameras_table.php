@@ -20,11 +20,9 @@ class CreateCamerasTable extends Migration
             $table->string('name')->comment('カメラ名');
             $table->tinyInteger('is_360_degree')->default(0)->comment('360度カメラかどうか');
             $table->tinyInteger('for_timelapse')->default(0)->comment('タイムラプス用かどうか');
+            $table->integer('shooting_span')->nullable()->comment('タイムラプス用　撮影スパン');
             $table->integer('file')->nullable()->comment('直近の録画データ');
             $table->timestamps();
-            // $table->tinyInteger('zoom')->default(0)->comment('ズーム');
-            // $table->tinyInteger('screenshot')->default(0)->comment('スクショ');
-            // $table->tinyInteger('look_around')->default(0)->comment('見回し');
         });
     }
 

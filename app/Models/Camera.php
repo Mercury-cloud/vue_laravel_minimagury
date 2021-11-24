@@ -9,6 +9,12 @@ class Camera extends Model
 {
     use HasFactory;
     protected $fillable = [
-    
+        'user_id', // ユーザーID
+        'field_id', // 圃場ID
+        'name', // カメラ名
+        'is_360_degree', // 360度カメラかどうか
+        'for_timelapse', // タイムラプス用かどうか
+        'shooting_span', // タイムラプス用　撮影スパン
+        'file', // 直近の録画データ
     ];
 }

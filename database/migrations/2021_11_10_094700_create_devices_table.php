@@ -28,8 +28,14 @@ class CreateDevicesTable extends Migration
             $table->enum('wind_direction', ['vertical', 'horizontal', 'auto'])->nullable()->comment('エアコン用　風量（上下、左右、AUTO）');
             $table->string('status')->nullable()->comment('現在の稼働状態　ON・OFF');
             $table->string('schedule')->nullable()->comment('スケジュール');
-            $table->tinyInteger('is_alert')->default(0)->comment('アラートの有無');
-            $table->string('alert_text')->nullable()->comment('アラート内容');
+            $table->float('upper_limit')->nullable()->comment('アラート　上限値');
+            $table->string('upper_limit_inequality_sign')->nullable()->comment('アラート　上限等符号');
+            $table->string('upper_limit_alert_text')->nullable()->comment('アラート　上限こえたときの文言');
+            $table->float('lower_limit')->nullable()->comment('アラート　下限値');
+            $table->string('lower_limit_inequality_sign')->nullable()->comment('アラート　下限等符号');
+            $table->string('lower_limit_alert_text')->nullable()->comment('アラート　下限こえたときの文言');
+            $table->tinyInteger('is_alert')->default(0)->comment('現在のアラートの有無');
+            $table->string('alert_text')->nullable()->comment('現在のアラート内容');
             $table->timestamps();
         });
     }
