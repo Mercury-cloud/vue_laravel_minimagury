@@ -18,14 +18,12 @@ class CreateScenesTable extends Migration
             $table->foreignId('device_id')->comment('機器ID')->constrained('devices')->cascadeOnDelete();
             $table->string('name')->comment('シーン名');
             // オンオフのみ
-            $table->tinyInteger('switch')->nullable()->comment('ON/OFF');
+            $table->tinyInteger('power')->nullable()->comment('電源 ON/OFF');
             // エアコン
             $table->float('temperature')->nullable()->comment('エアコン用　温度');
             $table->enum('mode', ['cooling', 'heating', 'dehumidifier', 'auto', 'ventilation'])->nullable()->comment('エアコン用　運転モード（冷房、暖房、除湿、AUTO、送風）');
             $table->enum('air_flow', ['low', 'mid', 'high', 'auto', 'power'])->nullable()->comment('エアコン用　風量（弱、中、強、AUTO、パワフル）');
-            $table->enum('wind_direction', ['vertical', 'horizontal', 'auto'])->nullable()->comment('エアコン用　風量（上下、左右、AUTO）');
-            // 
-            $table->tinyInteger('is_valid')->default(0)->comment('有効無効');
+            $table->enum('wind_direction', ['vertical', 'horizontal', 'auto'])->nullable()->comment('エアコン用　風向（上下、左右、AUTO）');
             $table->timestamps();
         });
     }

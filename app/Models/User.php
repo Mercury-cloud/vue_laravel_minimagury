@@ -20,6 +20,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'splash_file', // スプラッシュ画像
+        'splash_color', // スプラッシュ背景カラー
+        'push_permission', // push権限
+        'push_alert', // アラートのpush
+        'push_scene', // シーンのpush
+        'push_camera_shot', // カメラ撮影時のpush
         'password',
         'api_token',
     ];

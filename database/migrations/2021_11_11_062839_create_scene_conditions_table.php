@@ -16,10 +16,16 @@ class CreateSceneConditionsTable extends Migration
         Schema::create('scene_conditions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('scene_id')->comment('シーンID')->constrained('scenes')->cascadeOnDelete();
-            $table->enum('type', ['numeric', 'timer'])->nullable()->comment('数値、タイマー');
+            $table->foreignId('sensor_id')->nullable()->comment('センサーID')->constrained('sensors')->cascadeOnDelete();
+            $table->enum('type', ['numeric', 'timer'])->comment('数値、タイマー');
             // 数値条件用
+            $table->enum('aggregation_type', ['single', 'double', 'triple'])->nullable()->comment('数値の集計タイプ　3つ同時に集計まである');
             $table->float('threshold')->nullable()->comment('閾値');
             $table->enum('wind_direction', ['above', 'below'])->nullable()->comment('以上・以下');
+            $table->float('threshold2')->nullable()->comment('閾値2');
+            $table->enum('wind_direction2', ['above', 'below'])->nullable()->comment('以上・以下2');
+            $table->float('threshold3')->nullable()->comment('閾値3');
+            $table->enum('wind_direction3', ['above', 'below'])->nullable()->comment('以上・以下3');
             // タイマー用
             $table->string('start_time')->nullable()->comment('開始時間');
             $table->string('end_time')->nullable()->comment('終了時間');
