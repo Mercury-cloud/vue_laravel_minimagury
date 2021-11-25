@@ -21,11 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'splash_file', // スプラッシュ画像
-        'splash_color', // スプラッシュ背景カラー
+        'splash_color', // スプラッシュ背景カラーコード
         'push_permission', // push権限
         'push_alert', // アラートのpush
         'push_scene', // シーンのpush
         'push_camera_shot', // カメラ撮影時のpush
+        'auth_code', // パスワード変更時認証コード
         'password',
         'api_token',
     ];

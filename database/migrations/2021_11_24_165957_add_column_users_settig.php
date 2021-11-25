@@ -20,6 +20,7 @@ class AddColumnUsersSettig extends Migration
             $table->tinyInteger('push_alert')->default(0)->comment('アラートのpush')->after('push_permission');
             $table->tinyInteger('push_scene')->default(0)->comment('シーンのpush')->after('push_alert');
             $table->tinyInteger('push_camera_shot')->default(0)->comment('カメラ撮影時のpush')->after('push_scene');
+            $table->string('auth_code')->nullable()->comment('パスワード変更時認証コード')->after('push_camera_shot');
         });
     }
 
