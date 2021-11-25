@@ -11,7 +11,11 @@ class SceneCondition extends Model
 
     protected $fillable = [
         'scene_id', // シーンID
+        'sensor_id', // センサーID
+        'sensor_detail_id', // センサー詳細ID
         'type', // 数値、タイマー
+        'name', // 条件名（温度、湿度等）
+        'aggregation_type', // 数値の集計タイプ　3つ同時に集計まである
         'threshold', // 閾値
         'wind_direction', // 以上・以下
         'start_time', // 開始時間

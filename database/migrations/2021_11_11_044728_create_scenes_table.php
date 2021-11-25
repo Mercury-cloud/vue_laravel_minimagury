@@ -17,6 +17,7 @@ class CreateScenesTable extends Migration
             $table->id();
             $table->foreignId('device_id')->comment('機器ID')->constrained('devices')->cascadeOnDelete();
             $table->string('name')->comment('シーン名');
+            $table->string('detail')->nullable()->comment('詳細');
             // オンオフのみ
             $table->tinyInteger('power')->nullable()->comment('電源 ON/OFF');
             // エアコン

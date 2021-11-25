@@ -66,7 +66,7 @@ return [
         'CO2' => [
             [
                 "type" => "CO2",
-                "name" => "CO2センサー",
+                "name" => "CO2",
                 "description" => "二酸化炭素濃度の計測",
                 "unit" => "ppm",
                 "measuring_range_lower_limit" => 0,
@@ -76,7 +76,7 @@ return [
         'O2' => [
             [
                 "type" => "O2",
-                "name" => "O2センサー",
+                "name" => "O2",
                 "description" => "酸素濃度の計測",
                 "unit" => "%",
                 "measuring_range_lower_limit" => 10,
@@ -86,7 +86,7 @@ return [
         'water_temperature' => [
             [
                 "type" => "water_temperature",
-                "name" => "水温センサー",
+                "name" => "水温",
                 "description" => "水温の計測",
                 "unit" => "°C",
                 "measuring_range_lower_limit" => null,
@@ -96,7 +96,7 @@ return [
         'water_gauge' => [
             [
                 "type" => "water_gauge",
-                "name" => "水位センサー",
+                "name" => "水位",
                 "description" => "水位の計測",
                 "unit" => "%",
                 "measuring_range_lower_limit" => 0,
@@ -106,7 +106,7 @@ return [
         'pH' => [
             [
                 "type" => "pH",
-                "name" => "pHセンサー",
+                "name" => "pH",
                 "description" => "pHの計測",
                 "unit" => "段階",
                 "measuring_range_lower_limit" => 0,
@@ -116,14 +116,22 @@ return [
         'illuminometer' => [
             [
                 "type" => "illuminometer",
-                "name" => "光センサー",
-                "description" => "光の検知",
+                "name" => "照度",
+                "description" => "照度の検知",
                 "unit" => "lux",
                 "measuring_range_lower_limit" => null,
                 "measuring_range_upper_limit" => null,
             ],
         ],
         'soil_moisture' => [
+            [
+                "type" => "earth_thermometer",
+                "name" => "地温",
+                "description" => "地温の計測",
+                "unit" => "mS/cm",
+                "measuring_range_lower_limit" => null,
+                "measuring_range_upper_limit" => null,
+            ],
             [
                 "type" => "volume_water_content",
                 "name" => "体積含水率",
@@ -137,14 +145,6 @@ return [
                 "name" => "EC(電気伝導度)",
                 "description" => "水溶性塩類の総量の計測",
                 "unit" => "pF",
-                "measuring_range_lower_limit" => null,
-                "measuring_range_upper_limit" => null,
-            ],
-            [
-                "type" => "earth_thermometer",
-                "name" => "地温センサー",
-                "description" => "地温の計測",
-                "unit" => "mS/cm",
                 "measuring_range_lower_limit" => null,
                 "measuring_range_upper_limit" => null,
             ],
