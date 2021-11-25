@@ -60,21 +60,14 @@
                 　　　　</tr>
                     </thead>
                     <tbody>
-                      @foreach($managers as $manager)
+                      @foreach($users as $user)
                         <tr>
-                            <td>{{$manager->name}}</td>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->email}}</td> 
                             <td>
-                              @if($manager->type == 'admin')
-                              管理者
-                              @else
-                              スタッフ
-                              @endif
-                            </td> 
-                            <td>{{$manager->email}}</td> 
-                            <td>
-                              <a href="{{route('manage.account.edit',['manager'=> $manager])}}" class="btn btn-sm btn-block btn-outline-secondary">編集</a>
+                              <a href="{{ route('manage.user.edit', $user) }}" class="btn btn-sm btn-block btn-outline-secondary">編集</a>
                             </td>
-                            <td><a onclick='return confirm("この操作を行うと関連するデータが削除されます。\n\n本当に削除しますか？");' href="{{route('manage.account.delete',['manager'=>$manager])}}"  class="btn btn-sm btn-block btn-outline-danger">削除</a></td> 
+                            <td><a onclick='return confirm("この操作を行うと関連するデータが削除されます。\n\n本当に削除しますか？");' href="{{route('manage.user.delete')}}"  class="btn btn-sm btn-block btn-outline-danger">削除</a></td> 
                             {{-- <td>{{$manager->password}}</td>  --}}
                         </tr>
                        @endforeach

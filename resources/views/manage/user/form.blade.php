@@ -1,4 +1,4 @@
-@extends('manage.layouts.app')
+@extends('manage.layout.app')
 
 @section('css')
 @endsection
@@ -31,22 +31,12 @@
           <!-- /.card-header -->
           <!-- form start -->
             <div class="card-body">
-              {{Form::model($manager ,['class' =>'form-horizontal' ])}}
+              {{ Form::model($user ,['class' =>'form-horizontal' ]) }}
               <div class="form-group row">
                 <label for='name' class="col-sm-2 col-form-label">名前</label>
                 <div class="col-sm-10">
                   {!! Form::text('name',null, ['id'=>'name','class'=>'form-control '. $errors->first('name', 'is-invalid') ,'placeholder'=>'入力してください']) !!}
                   {!! $errors->first('name', '<small class="text-danger">:message</small>') !!}
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label">タイプ</label>
-                <div class="col-sm-10">
-                  {!! Form::select('type',[
-                    'admin'=>'管理者',
-                    'staff'=>'スタッフ',
-                ],null,['class'=>'form-control']) !!}
-                  {!! $errors->first('type', '<small class="text-danger">:message</small>') !!}
                 </div>
               </div>
               <div class="form-group row">

@@ -14,9 +14,9 @@ class AuthController extends Controller
 
 
     public function user (Request $request, User $managers){
-        $managers = User::orderby('id','DESC')->paginate(10);
-        return view('manage.user',[
-            'managers'=>$managers,
+        $users = User::orderby('id','DESC')->paginate(10);
+        return view('manage.index',[
+            'users' => $users,
         ]);
     }
 
