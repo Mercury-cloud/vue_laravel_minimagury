@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Manage\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/**********
+* 管理画面
+***********/ 
+
+Route::get('/login',      [AuthController::class, 'login'])->name('manage.login');
+Route::get('/user',      [AuthController::class, 'user'])->name('manage.user');
+Route::get('/user/add',      [AuthController::class, 'useradd'])->name('manage.user.add');
+Route::get('/manage/logout',      [AuthController::class, 'logout'])->name('manage.logout');
