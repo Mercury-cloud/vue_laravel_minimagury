@@ -49,4 +49,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getSplashFilePathAttribute(){
+        if ($this->image) {
+            if (empty(config('aws.cloud_front.uri'))) {
+                return asset("storage/".$this->splash_file);
+            }
+            return config('aws.cloud_front.uri')."/".$this->splash_file;
+        } else {
+            return null;
+        }
+    }
 }
