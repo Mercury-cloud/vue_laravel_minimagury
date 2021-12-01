@@ -17,7 +17,7 @@ class CreateDevicesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->comment('ユーザーID')->constrained('users')->cascadeOnDelete();
             $table->foreignId('field_id')->comment('圃場ID')->constrained('fields')->cascadeOnDelete();
-            $table->string('name')->comment('機器名');
+            $table->string('name')->nullable()->comment('機器名');
             $table->string('icon')->nullable()->comment('アイコン');
             $table->string('description')->nullable()->comment('使用目的');
             $table->enum('type', ['switch', 'air_conditioner'])->default('switch')->comment('機器のタイプ');

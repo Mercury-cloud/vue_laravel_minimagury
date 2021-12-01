@@ -34,6 +34,11 @@ class AddColumnUsersSettig extends Migration
         Schema::table('users', function (Blueprint $table) {
              $table->dropColumn('splash_file');
              $table->dropColumn('splash_color');
+             $table->dropColumn('push_permission');
+             $table->dropColumn('push_alert');
+             $table->dropColumn('push_scene');
+             $table->dropColumn('push_camera_shot');
+             $table->dropColumn('auth_code');
         });
     }
 }

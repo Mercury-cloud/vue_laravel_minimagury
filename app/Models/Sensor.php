@@ -16,6 +16,7 @@ class Sensor extends Model
         'name', // センサー名
         'description', // 機能
         'aggregation_type', // 集計タイプ　3つ同時に集計まである
+        'is_valid', // 有効無効
         'is_alert', // 現在のアラートの有無
         'alert_text', // 現在のアラート内容
         'alert_text2', // 現在のアラート内容2
