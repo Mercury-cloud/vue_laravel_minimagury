@@ -13,6 +13,7 @@ class SceneCondition extends Model
         'scene_id', // シーンID
         'sensor_id', // センサーID
         'sensor_detail_id', // センサー詳細ID
+        'is_valid', // 有効無効
         'type', // 数値、タイマー
         'name', // 条件名（温度、湿度等）
         'aggregation_type', // 数値の集計タイプ　3つ同時に集計まである

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnSensorsIsValid extends Migration
+class AddColumnSceneConditionIsValid extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnSensorsIsValid extends Migration
      */
     public function up()
     {
-        Schema::table('sensors', function (Blueprint $table) {
-            $table->tinyInteger('is_valid')->default(1)->comment('有効かどうか')->after('aggregation_type');
+        Schema::table('scene_conditions', function (Blueprint $table) {
+            $table->tinyInteger('is_valid')->default(1)->comment('有効かどうか')->after('sensor_detail_id');
         });
     }
 
@@ -25,7 +25,7 @@ class AddColumnSensorsIsValid extends Migration
      */
     public function down()
     {
-        Schema::table('sensors', function (Blueprint $table) {
+        Schema::table('scene_conditions', function (Blueprint $table) {
             $table->dropColumn('is_valid');
         });
     }
