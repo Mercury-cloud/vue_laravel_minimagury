@@ -53,10 +53,9 @@
                     <thead>
                       <tr>
                         <th>名前</th>
-                        <th>タイプ</th>
                         <th>E-mail</th>
                         <th>編集</th>
-                        <th>操作</th>
+                        <th>削除</th>
                 　　　　</tr>
                     </thead>
                     <tbody>
@@ -67,7 +66,9 @@
                             <td>
                               <a href="{{ route('manage.user.edit', $user) }}" class="btn btn-sm btn-block btn-outline-secondary">編集</a>
                             </td>
-                            <td><a onclick='return confirm("この操作を行うと関連するデータが削除されます。\n\n本当に削除しますか？");' href="{{route('manage.user.delete')}}"  class="btn btn-sm btn-block btn-outline-danger">削除</a></td> 
+                            <td>
+                              <a onclick='return confirm("この操作を行うと関連するデータが削除されます。\n\n本当に削除しますか？");' href="{{route('manage.user.delete',$user)}}"  class="btn btn-sm btn-block btn-outline-danger">削除</a>
+                            </td> 
                             {{-- <td>{{$manager->password}}</td>  --}}
                         </tr>
                        @endforeach
