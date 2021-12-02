@@ -19,4 +19,10 @@ class Scene extends Model
         'air_flow', // エアコン用　風量（弱、中、強、AUTO、パワフル）
         'wind_direction', // エアコン用　風向（上下、左右、AUTO）
     ];
+
+    public function device()
+    {
+        return $this->belongsTo(Device::class);
+    }
+
 }

@@ -28,4 +28,13 @@ class Sensor extends Model
         'latest_value3_text', // 最新のログの項目名3
         'latest_value3', // 最新のログの値3
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function field()
+    {
+        return $this->belongsTo(Field::class);
+    }
 }

@@ -22,6 +22,11 @@ class LogCameraDocumentary extends Model
         'file_path',
     ];
 
+    public function camera()
+    {
+        return $this->belongsTo(Camera::class);
+    }
+
     public function getFilePathAttribute() {
         if ($this->file) {
             assert(!empty(config('aws.cloud_front.uri')));

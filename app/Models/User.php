@@ -50,6 +50,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // 圃場
+    public function fields() {
+        return $this->hasMany(Field::class);
+    }
+    // センサー
+    public function sensors() {
+        return $this->hasMany(Sensor::class);
+    }
+    // 機器
+    public function devices() {
+        return $this->hasMany(Device::class);
+    }
+    // カメラ
+    public function cameras() {
+        return $this->hasMany(Camera::class);
+    }
+
     public function getSplashFilePathAttribute(){
         if ($this->image) {
             if (empty(config('aws.cloud_front.uri'))) {

@@ -25,4 +25,13 @@ class Device extends Model
         'alert', // アラートの有無
         'alert_text', // アラート内容
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function field()
+    {
+        return $this->belongsTo(Field::class);
+    }
 }

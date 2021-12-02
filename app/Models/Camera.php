@@ -17,4 +17,13 @@ class Camera extends Model
         'shooting_span', // タイムラプス用　撮影スパン
         'file', // 直近の録画データ
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function field()
+    {
+        return $this->belongsTo(Field::class);
+    }
 }

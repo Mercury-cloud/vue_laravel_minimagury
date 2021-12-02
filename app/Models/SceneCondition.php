@@ -30,5 +30,16 @@ class SceneCondition extends Model
         'sunday', // 実行曜日　日
     ];
 
-    
+    public function scene()
+    {
+        return $this->belongsTo(Scene::class);
+    }
+    public function sensor()
+    {
+        return $this->belongsTo(Sensor::class);
+    }
+    public function sensor_detail()
+    {
+        return $this->belongsTo(SensorDetail::class);
+    }
 }

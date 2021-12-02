@@ -14,4 +14,17 @@ class Field extends Model
         'name', // 圃場名
         'device_id', // ラズベーパイID
     ];
+
+    // センサー
+    public function sensors() {
+        return $this->hasMany(Sensor::class);
+    }
+    // 機器
+    public function devices() {
+        return $this->hasMany(Device::class);
+    }
+    // カメラ
+    public function cameras() {
+        return $this->hasMany(Camera::class);
+    }
 }

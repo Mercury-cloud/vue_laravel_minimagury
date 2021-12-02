@@ -15,5 +15,9 @@ class LogAction extends Model
         'target', // 操作対象
         'description', // 操作内容詳細
     ];
-    
+
+    public function device()
+    {
+        return $this->belongsTo(Device::class);
+    }
 }

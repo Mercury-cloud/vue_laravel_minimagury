@@ -27,4 +27,10 @@ class SensorDetail extends Model
         'is_alert', // 現在のアラートの有無
         'alert_text', // 現在のアラート内容
     ];
+
+
+    public function sensor()
+    {
+        return $this->belongsTo(Sensor::class);
+    }
 }
