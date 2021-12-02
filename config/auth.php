@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        
+        'viewer' => [
+            'driver' => 'session',
+            'provider' => 'viewers',
+        ],
     ],
 
     /*
@@ -67,7 +72,7 @@ return [
         
         'viewers' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Viewer::class,
         ],
 
         'admins' => [
@@ -99,6 +104,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        
+        'viewers' => [
+            'provider' => 'viewers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
