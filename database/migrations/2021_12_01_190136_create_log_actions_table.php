@@ -16,7 +16,7 @@ class CreateLogActionsTable extends Migration
         Schema::create('log_actions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('device_id')->comment('機器ID')->constrained('devices')->cascadeOnDelete();
-            $table->enum('type', ['manual', 'scene'])->default('switch')->comment('操作タイプ　手動かシーンか');
+            $table->enum('type', ['manual', 'scene'])->default('scene')->comment('操作タイプ　手動かシーンか');
             $table->string('target')->comment('操作対象');
             $table->string('description')->comment('操作内容詳細');
             $table->timestamps();

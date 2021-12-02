@@ -25,4 +25,5 @@ class Scene extends Model
         return $this->belongsTo(Device::class);
     }
 
+    
 }
