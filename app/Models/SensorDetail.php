@@ -10,7 +10,7 @@ class SensorDetail extends Model
     use HasFactory;
     protected $fillable = [
         'sensor_id', // センサーID
-        'type', // センサータイプ
+        'type', // センサータイプ ['float', 'int']
         'name', // センサー名
         'description', // 機能
         'precision', // 精度

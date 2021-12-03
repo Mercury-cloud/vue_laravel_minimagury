@@ -9,9 +9,9 @@ class LogCameraDocumentary extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'camera_id', // 
-        'file', // 
-        'date', // 
+        'camera_id', // カメラID
+        'file', // データファイル保存先
+        'date', // 撮影日
     ];
 
     protected $dates = [

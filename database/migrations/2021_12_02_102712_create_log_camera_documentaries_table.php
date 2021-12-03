@@ -15,7 +15,7 @@ class CreateLogCameraDocumentariesTable extends Migration
     {
         Schema::create('log_camera_documentaries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('camera_id')->nullable()->comment('カメラID')->constrained('cameras')->cascadeOnDelete(); // nullOnDelete
+            $table->foreignId('camera_id')->comment('カメラID')->constrained('cameras')->cascadeOnDelete(); // nullOnDelete
             $table->string('file')->comment('データファイル保存先');
             $table->date('date')->comment('撮影日');
             $table->timestamps();
