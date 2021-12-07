@@ -53,7 +53,7 @@
                     <thead>
                       <tr>
                         <th>名前</th>
-                        <th>E-mail</th>
+                        <th>メールアドレス</th>
                         <th>編集</th>
                         <th>削除</th>
                 　　　　</tr>

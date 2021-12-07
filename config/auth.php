@@ -40,7 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
         
     ],
 
@@ -60,6 +63,8 @@ return [
     | Supported: "database", "eloquent"
     |
     */
+  
+
 
     'providers' => [
         'users' => [
@@ -72,9 +77,11 @@ return [
             'model' => App\Models\User::class,
         ],
 
+
+  
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
@@ -82,6 +89,7 @@ return [
         //     'table' => 'users',
         // ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -121,3 +129,6 @@ return [
     'password_timeout' => 10800,
 
 ];
+
+
+

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,5 +15,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\User::factory(10)->create();
+
+        Admin::firstOrCreate([
+            "name" => "初期管理者2",
+            "email" => "test@test.com",
+        ],[
+            "password" => bcrypt("password")
+        ]);
+
     }
 }

@@ -14,12 +14,6 @@
       <div class="col-sm-6">
         <h1 class="m-0">ユーザー管理</h1>
       </div><!-- /.col -->
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard v1</li>
-        </ol>
-      </div><!-- /.col -->
     </div><!-- /.row -->
   </div><!-- /.container-fluid -->
 </div>
@@ -40,7 +34,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label for="email" class="col-sm-2 col-form-label">E-mail</label>
+                <label for="email" class="col-sm-2 col-form-label">メールアドレス</label>
                 <div class="col-sm-10">
                   {!! Form::text('email',null, ['id'=>'email','class'=>'form-control '. $errors->first('email', 'is-invalid') ,'placeholder'=>'入力してください']) !!}
                   {!! $errors->first('email', '<small class="text-danger">:message</small>') !!}
@@ -49,7 +43,8 @@
               <div class="form-group row">
                 <label for='password' class="col-sm-2 col-form-label">パスワード</label>
                 <div class="col-sm-10">
-                    {!! Form::password('password', ['id'=>'password','class'=>'form-control','placeholder'=>' 変更する場合のみ入力してください']) !!}
+                   {!! Form::password('password', ['id'=>'password','class'=>'form-control '. $errors->first('password', 'is-invalid'),'placeholder'=>'新規登録する場合は入力してください']) !!}
+                   {!! $errors->first('password', '<small class="text-danger">:message</small>') !!}
                 </div>
 
               </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
+
 
 class UserController extends Controller
 {
@@ -24,20 +26,22 @@ class UserController extends Controller
         //dd($user->toArray());
         return view('manage.user.form', ['user' => $user]);
     }
-    public function store(User $user, Request $request) {
-        // 追加の時に動く
-        if ($user == null) {
-            $user = new User();
-        }
+
+    public function store(User $user, StorePostRequest $request) {
+
         
-        $user->fill($request->all());
-        if ($request->has('password')) {// パスワードが有れば
+        if($request->has('password')) {// パスワードが有れば
             $user->password = bcrypt($request->get('password'));
         }
+
+        $user->fill($request->all());
         $user->save();
+
         return redirect()->route('manage.user.index');
     }
-    // user/add
+
+    
+    // user/delete
     public function delete(User $user) {
         // 削除処理書く
         $user->delete();
@@ -45,3 +49,4 @@ class UserController extends Controller
     }
 
 }
+

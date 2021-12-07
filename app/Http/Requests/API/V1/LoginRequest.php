@@ -23,12 +23,16 @@ class LoginRequest extends FormRequest
      *
      * @return array
      */
+
+    
     public function rules()
     {
+        
         return [
             "email" => "required",
             "password" => "required",
         ];
+       
     }
 
     protected function failedValidation(Validator $validator)
@@ -36,5 +40,7 @@ class LoginRequest extends FormRequest
         throw new HttpResponseException(
             response()->json( ["errors" => '不正なリクエストです', 'validations' => $validator], 422 )
         );
+        
     }
+  
 }
