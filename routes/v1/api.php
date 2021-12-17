@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function(){
-    // Route::get('/user', [BaseController::class, 'user']);
+    Route::get('/user', [BaseController::class, 'user']);
 
     // 圃場
     Route::apiResource('field', FieldController::class);

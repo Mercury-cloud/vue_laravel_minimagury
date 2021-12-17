@@ -12,7 +12,7 @@ class Field extends Model
     protected $fillable = [
         'user_id', // ユーザーID
         'name', // 圃場名
-        'device_id', // ラズベーパイID
+        'key', // ラズベーパイID
     ];
 
     // センサー

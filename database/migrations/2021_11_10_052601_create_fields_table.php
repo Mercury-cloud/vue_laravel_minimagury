@@ -17,7 +17,7 @@ class CreateFieldsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->comment('ユーザーID')->constrained('users')->cascadeOnDelete();
             $table->string('name')->comment('圃場名');
-            $table->string('device_id')->comment('ラズベーパイID');
+            $table->string('key')->comment('ラズベーパイID');
             $table->timestamps();
         });
     }

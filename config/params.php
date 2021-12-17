@@ -150,4 +150,52 @@ return [
             ],
         ],
     ],
+
+    'devices' => [
+        [
+            "type" => "switch",
+            "key" => "illumination",
+            "name" => "照明",
+        ],
+        [
+            "type" => "switch",
+            "key" => "pump",
+            "name" => "ポンプ",
+        ],
+        [
+            "type" => "air_conditioner",
+            "key" => "air_conditioner",
+            "name" => "エアコン",
+        ],
+        [
+            "type" => "switch",
+            "key" => "Fan",
+            "name" => "扇風機",
+        ],
+        [
+            "type" => "switch",
+            "key" => "ventilation_fan",
+            "name" => "換気扇",
+        ],
+        [
+            "type" => "switch",
+            "key" => "humidifier",
+            "name" => "加湿器",
+        ],
+        [
+            "type" => "switch",
+            "key" => "dehumidification",
+            "name" => "除湿器",
+        ],
+        [
+            "type" => "switch",
+            "key" => "solenoid_valve",
+            "name" => "電磁弁",
+        ],
+        [
+            "type" => "switch",
+            "key" => "raising_seedlings",
+            "name" => "育苗ローラ",
+        ],
+    ],
 ];
