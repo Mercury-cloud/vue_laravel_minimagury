@@ -153,6 +153,11 @@ return [
 
     'devices' => [
         [
+            "type" => "air_conditioner",
+            "key" => "air_conditioner",
+            "name" => "エアコン",
+        ],
+        [
             "type" => "switch",
             "key" => "illumination",
             "name" => "照明",
@@ -161,11 +166,6 @@ return [
             "type" => "switch",
             "key" => "pump",
             "name" => "ポンプ",
-        ],
-        [
-            "type" => "air_conditioner",
-            "key" => "air_conditioner",
-            "name" => "エアコン",
         ],
         [
             "type" => "switch",
