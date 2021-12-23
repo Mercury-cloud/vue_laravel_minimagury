@@ -22,6 +22,8 @@ class User extends Authenticatable
         'email',
         'splash_file', // スプラッシュ画像
         'splash_color', // スプラッシュ背景カラーコード
+        'theme_color', // テーマ色
+        'background_color', // 背景色
         'push_permission', // push権限
         'push_alert', // アラートのpush
         'push_scene', // シーンのpush

@@ -15,7 +15,7 @@ class AddColumnUsersSettig extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('splash_file')->nullable()->comment('スプラッシュ画像')->after('email');
-            $table->string('splash_color', 10)->nullable()->comment('スプラッシュ背景カラー')->after('splash_file');
+            $table->string('splash_color')->nullable()->comment('スプラッシュ背景カラー')->after('splash_file');
             $table->tinyInteger('push_permission')->default(1)->comment('push権限')->after('splash_file');
             $table->tinyInteger('push_alert')->default(0)->comment('アラートのpush')->after('push_permission');
             $table->tinyInteger('push_scene')->default(0)->comment('シーンのpush')->after('push_alert');
