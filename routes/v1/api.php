@@ -34,11 +34,13 @@ Route::middleware('auth:api')->group(function(){
 
 
     // 機器
-    Route::apiResource('device', DeviceController::class);
+    // Route::apiResource('device', DeviceController::class);
+    Route::get('/device/add', [DeviceController::class, 'store'])->name('device.add');
 
 
     // シーン
-    Route::apiResource('scene', SceneController::class);
+    // Route::apiResource('scene', SceneController::class);
+    Route::get('/scene/add', [SceneController::class, 'store'])->name('scene.add');
 
     // 設定
     Route::get('/setting/splash', [SettingController::class, 'settingSplash']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Scene;
 use Illuminate\Http\Request;
 
 class SceneController extends Controller
@@ -26,6 +27,8 @@ class SceneController extends Controller
     public function store(Request $request)
     {
         //
+        $scene = Scene::create($request->all());
+        return $scene; 
     }
 
     /**

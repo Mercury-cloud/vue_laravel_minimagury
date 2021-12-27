@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Device;
 use Illuminate\Http\Request;
 
 class DeviceController extends Controller
@@ -25,7 +26,8 @@ class DeviceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $device = Device::create($request->all());
+        return $device;
     }
 
     /**
