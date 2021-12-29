@@ -21,7 +21,7 @@ class CreateViewersTable extends Migration
             $table->string('password_text')->comment('パスワード共有用');
             $table->date('expiration_date')->comment('有効期限');
             $table->string('password')->comment('パスワード');
-            $table->string('api_token', 80)->unique()->nullable();
+            $table->string('api_token', 500)->unique()->nullable();
             $table->timestamps();
         });
     }

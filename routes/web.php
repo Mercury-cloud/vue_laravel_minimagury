@@ -32,3 +32,4 @@ Route::post('/manage/user/add',         [UserController::class, 'store'])->name(
 Route::get('/manage/user/edit/{user}',  [UserController::class, 'edit'])->name('manage.user.edit');
 Route::post('/manage/user/edit/{user}', [UserController::class, 'store'])->name('manage.user.edit.post');
 Route::get('/manage/user/delete/{user}',[UserController::class, 'delete'])->name('manage.user.delete');
+
