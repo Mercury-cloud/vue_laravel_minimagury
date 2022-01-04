@@ -17,7 +17,7 @@ class FieldController extends Controller
      */
     public function list()
     {
-        $list = Field::where('user_id' , auth()->user->id)->get();
+        $list = Field::where('user_id' , auth()->user()->id)->orderBy('id', 'DESC')->get();
         return response()->json([
             'success' => true,
             'data' => $list
@@ -33,7 +33,7 @@ class FieldController extends Controller
     public function add(NameStoreRequest $request)
     {
         $field = Field::create([
-            'user_id' => auth()->user->id,
+            'user_id' => auth()->user()->id,
             'name' => $request->name,
         ]);
 

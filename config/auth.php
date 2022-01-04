@@ -45,6 +45,11 @@ return [
         //     'driver' => 'jwt',
         //     'provider' => 'users',
         // ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ],
         
         'viewer' => [
             'driver' => 'session',

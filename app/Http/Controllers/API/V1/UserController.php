@@ -115,12 +115,12 @@ class UserController extends Controller
  
     public function get_user(Request $request)
     {
-        $this->validate($request, [
-            'token' => 'required'
-        ]);
+        // $this->validate($request, [
+        //     'token' => 'required'
+        // ]);
  
-        $user = JWTAuth::authenticate($request->token);
+        // $user = JWTAuth::authenticate($request->token);
  
-        return response()->json(['user' => $user]);
+        return response()->json(auth()->user());
     }
 }
