@@ -26,7 +26,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', [UserController::class, 'authenticate']);
+Route::post('/login', [AuthController::class, 'login']);
+// Route::post('login', [UserController::class, 'authenticate']);
 
 // Route::group(['middleware' => ['jwt.verify']], function() {
 Route::middleware('auth:api')->group(function(){
