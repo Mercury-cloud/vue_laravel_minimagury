@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Scene;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-
-use App\Models\Scene;
-use App\Models\SceneCondition;
-use App\Models\Sensor;
 
 class SceneController extends Controller
 {

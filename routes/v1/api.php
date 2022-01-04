@@ -32,7 +32,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/user', [UserController::class, 'get_user']);
 
     // 圃場
-    Route::apiResource('field', FieldController::class);
+    Route::get('field/list', [FieldController::class, 'list']);
+    Route::post('field/add', [FieldController::class, 'add']);
+    Route::post('field/edit/{field}', [FieldController::class, 'edit']);
 
     // センサー
     Route::post('sensor-add', [SensorController::class, 'add_sensor']);
