@@ -36,6 +36,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('field/add', [FieldController::class, 'add']);
     Route::post('field/edit/{field}', [FieldController::class, 'edit']);
     Route::post('field/detail/{field}', [FieldController::class, 'detail']);
+    Route::delete('field/delete/{field}', [FieldController::class, 'delete']);
 
     // センサー
     Route::post('sensor-add', [SensorController::class, 'add_sensor']);
