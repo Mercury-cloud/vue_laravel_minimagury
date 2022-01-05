@@ -128,7 +128,7 @@ class SceneController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list_scene()
+    public function list()
     {
         // List all scenes
         $scenelist = Scene::get();

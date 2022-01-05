@@ -368,7 +368,7 @@ class DeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list_device()
+    public function list()
     {
         // List all devices
         $devicelist = Device::get();

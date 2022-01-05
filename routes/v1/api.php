@@ -41,19 +41,19 @@ Route::middleware('auth:api')->group(function(){
     Route::delete('field/delete/{field}', [FieldController::class, 'delete']);
 
     // センサー
-    Route::post('sensor-add', [SensorController::class, 'add_sensor']);
+    Route::get('sensor/{field}/list', [SensorController::class, 'list']);
+    Route::post('sensor/{field}/add', [SensorController::class, 'add']);
     Route::post('sensor-info-edit/{id}', [SensorController::class, 'edit_sensor_info']);
     Route::delete('sensor-info-delete/{id}', [SensorController::class, 'delete_sensor_info']);
     Route::post('sensor-values-save/{id}', [SensorController::class, 'save_sensor_values']);
     Route::get('sensor-values-get/{id}', [SensorController::class, 'get_sensor_values']);
-    Route::get('sensor-list', [SensorController::class, 'list_sensors']);
     Route::post('sensor-detail-add', [SensorController::class, 'add_sensor_detail']);
     Route::post('sensor-detail-edit/{id}', [SensorController::class, 'edit_sensor_detail']);
     Route::delete('sensor-detail-delete/{id}', [SensorController::class, 'delete_sensor_detail']);
     Route::get('sensor-get-by-field/{field_id}', [SensorController::class, 'get_sensor_by_field']);
 
     // 機器
-    // Route::apiResource('device', DeviceController::class);
+    Route::get('device/list', [DeviceController::class, 'list']);
     Route::post('device-add', [DeviceController::class, 'add_device']);
     Route::post('device-info-edit/{id}', [DeviceController::class, 'edit_device_info']);
     Route::delete('device-info-delete/{id}', [DeviceController::class, 'delete_device_info']);
@@ -66,7 +66,6 @@ Route::middleware('auth:api')->group(function(){
     Route::post('device-wind-direction-save/{id}', [DeviceController::class, 'save_device_wind_direction']);
     Route::get('device-wind-direction-get/{id}', [DeviceController::class, 'get_device_wind_direction']);
     Route::get('device-show/{id}', [DeviceController::class, 'show_device']);
-    Route::get('device-list', [DeviceController::class, 'list_device']);
 
 
     // シーン

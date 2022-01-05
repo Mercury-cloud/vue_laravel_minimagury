@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Field;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
@@ -12,21 +13,44 @@ use App\Models\SensorDetail;
 
 class SensorController extends Controller
 {
-    
+    /**
+     * Display a listing of sensors.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Request $request, Field $field)
+    {
+        // List all sensors
+        $sensorlist = Sensor::where('field_id', $field->id)->get();
+        if($sensorlist) {
+            return response()->json([
+                'success' => true,
+                'data'=> $sensorlist
+            ]);
+        }
+        else {
+            // When sensor is not found
+            return response()->json([
+                'success' => true,
+                'message' => 'There is no sensor!',
+            ]);            
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function add_sensor(Request $request)
+    public function add(Request $request, Field $field)
     {   
-        $data = $request->only('name', 'type', 'field_id', 'user_id');
+        $data = $request->only('name', 'type');
         $validator = Validator::make($data, [
-            'name' => 'required|string|unique:sensors',
+            'name' => 'required|string',
             'type' => 'required|string',
-            'field_id' => 'required|numeric',
-            'user_id' => 'required|numeric',
+            // 'field_id' => 'required|numeric',
+            // 'user_id' => 'required|numeric',
         ]);
         //Send failed response if request is not valid
         if ($validator->fails()) {
@@ -36,14 +60,22 @@ class SensorController extends Controller
         $newSensor = Sensor::create([
             'name' => $request->name,
             'type' => $request->type,
-            'field_id' => $request->field_id,
-            'user_id' => $request->user_id
+            'field_id' => $field->id,
+            'user_id' => auth()->user()->id,
         ]);
+
+        // センサーに紐づく集計情報保存
+        $sensor_details = config('params.sensor_details')[$request->type];
+        foreach ($sensor_details as $sensor_detail) {
+            SensorDetail::create(['sensor_id' => $newSensor->id] + $sensor_detail);
+        }
+        $newSensor->load('details');
+
         //Sensor created, return success response
         return response()->json([
             'success' => true,
             'message' => 'Sensor "'.$request->name.'" is registered successfully',
-            'data' => $newSensor
+            'data' => $newSensor,
         ], Response::HTTP_OK);
     }
 
@@ -156,31 +188,6 @@ class SensorController extends Controller
                 'success' => false,
                 'message' => 'Sensor not found!',
             ], 500);            
-        }
-    }
-
-
-    /**
-     * Display a listing of sensors.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function list_sensors()
-    {
-        // List all sensors
-        $sensorlist = Sensor::get();
-        if($sensorlist) {
-            return response()->json([
-                'success' => true,
-                'data'=> $sensorlist
-            ]);
-        }
-        else {
-            // When sensor is not found
-            return response()->json([
-                'success' => true,
-                'message' => 'There is no sensor!',
-            ]);            
         }
     }
 

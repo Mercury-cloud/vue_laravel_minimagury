@@ -10,11 +10,11 @@ class SensorDetail extends Model
     use HasFactory;
     protected $fillable = [
         'sensor_id', // センサーID
-        'type', // センサータイプ ['float', 'int']
+        'type', // センサータイプ
         'name', // センサー名
         'description', // 機能
         'precision', // 精度
-        'precision_type', // 精度種類
+        'precision_type', // 精度種類 ['float', 'int']
         'unit', // 単位
         'measuring_range_upper_limit', // 測定範囲　上限値
         'measuring_range_lower_limit', // 測定範囲　下限値

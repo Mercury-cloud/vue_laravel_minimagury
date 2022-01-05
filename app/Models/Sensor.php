@@ -37,4 +37,8 @@ class Sensor extends Model
     {
         return $this->belongsTo(Field::class);
     }
+    public function details()
+    {
+        return $this->hasMany(SensorDetail::class);
+    }
 }
