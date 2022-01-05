@@ -80,6 +80,26 @@ class SensorController extends Controller
         ], Response::HTTP_OK);
     }
 
+    // 詳細
+    public function detail(Request $request, Field $field, Sensor $sensor)
+    {
+        // Sensor update with request data
+        if($sensor) {
+            $sensor->load('details');
+            return response()->json([
+                'success' => true,
+                'data' => $sensor,
+            ]);
+        }
+        else {
+            // Respond error when sensor is not found
+            return response()->json([
+                'success' => false,
+                'message' => 'Sensor not found!',
+            ], 500);
+        }
+    }
+
     /**
      * Update the specified sensor in DB.
      *
