@@ -24,4 +24,9 @@ class AuthController extends Controller
         }
     }
 
+    public function logout(LoginRequest $request) {
+        auth()->user()->logout();
+        return response()->json(["success" => 'ログインしました', 'api_token' => auth()->user()->api_token, 'user' => auth()->user()]);
+    }
+
 }
