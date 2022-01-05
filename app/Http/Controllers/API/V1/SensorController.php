@@ -57,7 +57,7 @@ class SensorController extends Controller
             return response()->json(['error' => $validator->messages()], 200);
         }
 
-        $newSensor = Sensor::create([
+        $newSensor = Sensor::firstOrCreate([
             'name' => $request->name,
             'type' => $request->type,
             'field_id' => $field->id,
@@ -69,6 +69,7 @@ class SensorController extends Controller
         foreach ($sensor_details as $sensor_detail) {
             SensorDetail::create(['sensor_id' => $newSensor->id] + $sensor_detail);
         }
+        $newSensor->refresh();
         $newSensor->load('details');
 
         //Sensor created, return success response
