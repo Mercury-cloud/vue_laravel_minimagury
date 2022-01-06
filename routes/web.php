@@ -21,15 +21,20 @@ use Illuminate\Support\Facades\Route;
 /**********
 * 管理画面
 ***********/ 
+Route::name('manage.')->group(function () {
+    Route::get('/manage/login',         [AuthController::class, 'login'])->name('login');
+    Route::post('/manage/login',        [AuthController::class, 'loginAttempt'])->name('login.attempt');
+    
+    Route::middleware(['auth:admin'])->group(function() {
+        Route::get('/manage/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/manage/login',         [AuthController::class, 'login'])->name('manage.login');
-Route::post('/manage/login',        [AuthController::class, 'loginAttempt'])->name('manage.login.attempt');
-Route::get('/manage/logout', [AuthController::class, 'logout'])->name('manage.logout');
-
-Route::get('/manage/user',              [UserController::class, 'index'])->name('manage.user.index');
-Route::get('/manage/user/add',          [UserController::class, 'add'])->name('manage.user.add');
-Route::post('/manage/user/add',         [UserController::class, 'store'])->name('manage.user.add.post');
-Route::get('/manage/user/edit/{user}',  [UserController::class, 'edit'])->name('manage.user.edit');
-Route::post('/manage/user/edit/{user}', [UserController::class, 'store'])->name('manage.user.edit.post');
-Route::get('/manage/user/delete/{user}',[UserController::class, 'delete'])->name('manage.user.delete');
+        Route::get('/manage',                   [AuthController::class, 'index'])->name('index');
+        Route::get('/manage/user',              [UserController::class, 'index'])->name('user.index');
+        Route::get('/manage/user/add',          [UserController::class, 'add'])->name('user.add');
+        Route::post('/manage/user/add',         [UserController::class, 'store'])->name('user.add.post');
+        Route::get('/manage/user/edit/{user}',  [UserController::class, 'edit'])->name('user.edit');
+        Route::post('/manage/user/edit/{user}', [UserController::class, 'store'])->name('user.edit.post');
+        Route::get('/manage/user/delete/{user}',[UserController::class, 'delete'])->name('user.delete');
+    });
+});
 
