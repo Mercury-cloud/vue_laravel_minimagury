@@ -44,9 +44,9 @@ Route::middleware('auth:api')->group(function(){
     // センサー
     Route::get('sensor/{field}/list', [SensorController::class, 'list']);
     Route::post('sensor/{field}/add', [SensorController::class, 'add']);
-    Route::get('sensor/{field}/detail/{sensor}', [SensorController::class, 'detail']);
+    Route::get('sensor/detail/{sensor}', [SensorController::class, 'detail']);
+    Route::delete('sensor/delete/{sensor}', [SensorController::class, 'delete']);
     Route::post('sensor-info-edit/{id}', [SensorController::class, 'edit_sensor_info']);
-    Route::delete('sensor-info-delete/{id}', [SensorController::class, 'delete_sensor_info']);
     Route::post('sensor-values-save/{id}', [SensorController::class, 'save_sensor_values']);
     Route::get('sensor-values-get/{id}', [SensorController::class, 'get_sensor_values']);
     Route::post('sensor-detail-add', [SensorController::class, 'add_sensor_detail']);

@@ -81,8 +81,9 @@ class SensorController extends Controller
     }
 
     // 詳細
-    public function detail(Request $request, Field $field, Sensor $sensor)
+    public function detail(Request $request, Sensor $sensor)
     {
+        $sensor->load('details');
         // Sensor update with request data
         if($sensor) {
             $sensor->load('details');
@@ -97,6 +98,30 @@ class SensorController extends Controller
                 'success' => false,
                 'message' => 'Sensor not found!',
             ], 500);
+        }
+    }
+
+    /**
+     * Remove the specified sensor from DB.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request, Sensor $sensor)
+    {
+        if($sensor) {
+            $sensor->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Sensor info is deleted successfully!',
+            ]);
+        }
+        else {
+            // Respond error when sensor is not found
+            return response()->json([
+                'success' => false,
+                'message' => 'Sensor not found!',
+            ], 500);            
         }
     }
 
@@ -127,31 +152,6 @@ class SensorController extends Controller
         }
     }
 
-    /**
-     * Remove the specified sensor from DB.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete_sensor_info(Request $request, $id)
-    {
-        // Sensor delete by id
-        $sensor = Sensor::find($id);
-        if($sensor) {
-            $sensor->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Sensor info is deleted successfully!',
-            ]);
-        }
-        else {
-            // Respond error when sensor is not found
-            return response()->json([
-                'success' => false,
-                'message' => 'Sensor not found!',
-            ], 500);            
-        }
-    }
 
     /**
      * Save Sensor Values.
