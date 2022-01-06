@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -38,7 +40,28 @@ class Handler extends ExceptionHandler
             //
         });
     }
-    
+
+    public function render($request, Throwable $exception)
+    {
+        if (!$request->is('api/*')) {
+            // API以外は何もしない
+            return parent::render($request, $exception);
+        } else if ($exception instanceof ModelNotFoundException) {
+            // Route Model Binding でデータが見つからない
+            return response()->json([
+                'success' => false,
+                'message' => 'Route Model Not found'
+            ], 404);
+        } else if ($exception instanceof NotFoundHttpException) {
+            // Route が存在しない
+            return response()->json([
+                'success' => false,
+                'message' => 'Route Not found'
+            ], 404);
+        } else {
+            return parent::render($request, $exception);
+        }
+    }
 }
 
 

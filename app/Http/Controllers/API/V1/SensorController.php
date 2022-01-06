@@ -84,72 +84,42 @@ class SensorController extends Controller
     public function detail(Request $request, Sensor $sensor)
     {
         $sensor->load('details');
-        // Sensor update with request data
-        if($sensor) {
-            $sensor->load('details');
-            return response()->json([
-                'success' => true,
-                'data' => $sensor,
-            ]);
-        }
-        else {
-            // Respond error when sensor is not found
-            return response()->json([
-                'success' => false,
-                'message' => 'Sensor not found!',
-            ], 500);
-        }
+        return response()->json([
+            'success' => true,
+            'data' => $sensor,
+        ]);
     }
 
     /**
      * Remove the specified sensor from DB.
      *
-     * @param  int  $id
+     * @param  Sensor $sensor
      * @return \Illuminate\Http\Response
      */
     public function delete(Request $request, Sensor $sensor)
     {
-        if($sensor) {
-            $sensor->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Sensor info is deleted successfully!',
-            ]);
-        }
-        else {
-            // Respond error when sensor is not found
-            return response()->json([
-                'success' => false,
-                'message' => 'Sensor not found!',
-            ], 500);            
-        }
+        $sensor->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Sensor info is deleted successfully!',
+        ]);
     }
 
     /**
      * Update the specified sensor in DB.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Sensor $sensor
      * @return \Illuminate\Http\Response
      */
-    public function edit_sensor_info(Request $request, $id)
+    public function edit(Request $request, Sensor $sensor)
     {
-        // Sensor update with request data
-        $sensor = Sensor::find($id);
-        if($sensor) {
-            $sensor->update($request->all());
-            return response()->json([
-                'success' => true,
-                'message' => 'Sensor info is updated successfully!',
-            ]);
-        }
-        else {
-            // Respond error when sensor is not found
-            return response()->json([
-                'success' => false,
-                'message' => 'Sensor not found!',
-            ], 500);            
-        }
+        $sensor->update($request->all());
+        return response()->json([
+            'success' => true,
+            'message' => 'Sensor info is updated successfully!',
+            'data' => $sensor,
+        ]);
     }
 
 
@@ -179,7 +149,7 @@ class SensorController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Sensor not found!',
-            ], 500);            
+            ], 500);
         }
     }
 
@@ -208,7 +178,7 @@ class SensorController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Sensor not found!',
-            ], 500);            
+            ], 500);
         }
     }
 
@@ -264,7 +234,7 @@ class SensorController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Sensor detail not found!',
-            ], 500);            
+            ], 500);
         }
     }
 
@@ -284,7 +254,7 @@ class SensorController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Sensor detail not found!',
-            ], 500);            
+            ], 500);
         }
     }
 
@@ -309,7 +279,7 @@ class SensorController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'sensor not found!',
-            ], 500);            
+            ], 500);
         }
     }
 
