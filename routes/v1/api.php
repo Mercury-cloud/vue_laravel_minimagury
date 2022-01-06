@@ -103,12 +103,6 @@ Route::middleware('auth:api')->group(function(){
     Route::get('timelapse-get/{id}', [TimelapseController::class, 'get_timelapse']);
     Route::get('timelapse-url-get/{id}', [TimelapseController::class, 'get_timelapse_url']);
 
-    // 履歴
-    Route::get('action-log-list', [LogController::class, 'list_action_logs']);
-    Route::get('camera-log-documentary-get/{camera_id}', [LogController::class, 'get_camera_log']);
-    Route::post('log/camera/{camera_id}', [LogController::class, 'save_camera_log']);
-    Route::get('sensor-log-get/{sensor_id}/{sensor_detail_id}', [LogController::class, 'get_sensor_log']);
-    Route::post('log/sensor/{sensor_id}/{sensor_detail_id}', [LogController::class, 'save_sensor_log']);
 
     // 設定
     Route::get('/setting/get-list', [SettingController::class, 'settingGetList']);
@@ -129,4 +123,14 @@ Route::middleware('auth:api')->group(function(){
     Route::post('edit-camera-relation/{id}', [ViewerController::class, 'edit_camera_relation']);
     Route::post('edit-sensor-relation/{id}', [ViewerController::class, 'edit_sensor_relation']);
     Route::post('viewer/login', [ViewerController::class, 'viewer_login']);
+});
+
+// middleware('auth:api')->
+// 履歴
+Route::name('log.')->group(function(){
+    Route::get('action-log-list', [LogController::class, 'list_action_logs']);
+    Route::get('camera-log-documentary-get/{camera_id}', [LogController::class, 'get_camera_log']);
+    Route::post('log/camera/{camera_id}', [LogController::class, 'save_camera_log']);
+    Route::get('sensor-log-get/{sensor_id}/{sensor_detail_id}', [LogController::class, 'get_sensor_log']);
+    Route::post('log/sensor/{sensor_detail:slug}', [LogController::class, 'save_sensor_log'])->name('sensor');
 });

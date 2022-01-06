@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class SensorDetail extends Model
 {
     use HasFactory;
     protected $fillable = [
         'sensor_id', // センサーID
+        'slug', // エンドポイントURL
         'type', // センサータイプ
         'name', // センサー名
         'description', // 機能
@@ -28,9 +30,27 @@ class SensorDetail extends Model
         'alert_text', // 現在のアラート内容
     ];
 
+    protected $dates = [
+    ];
+
+    protected $casts = [
+    ];
+    
+    protected $appends = [
+        'endpoint_url',
+    ];
+
 
     public function sensor()
     {
         return $this->belongsTo(Sensor::class);
+    }
+
+    public function createSlug() {
+        $this->slug = Str::uuid();
+    }
+
+    public function getEndpointUrlAttribute(){
+        return route('api.v1.log.sensor', $this->slug);
     }
 }

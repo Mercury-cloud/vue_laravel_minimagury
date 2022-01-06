@@ -7,6 +7,7 @@ use App\Models\Field;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 use App\Models\Sensor;
 use App\Models\SensorDetail;
@@ -67,7 +68,7 @@ class SensorController extends Controller
         // センサーに紐づく集計情報保存
         $sensor_details = config('params.sensor_details')[$request->type];
         foreach ($sensor_details as $sensor_detail) {
-            SensorDetail::create(['sensor_id' => $newSensor->id] + $sensor_detail);
+            SensorDetail::create(['sensor_id' => $newSensor->id, 'slug' => Str::uuid()] + $sensor_detail);
         }
         $newSensor->refresh();
         $newSensor->load('details');

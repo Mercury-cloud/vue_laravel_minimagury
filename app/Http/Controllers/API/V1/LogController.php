@@ -105,7 +105,7 @@ class LogController extends Controller
         }
     }
 
-    public function save_sensor_log(Request $request, $sensor_id, $sensor_detail_id)
+    public function save_sensor_log(Request $request, SensorDetail $sensor_detail)
     {
         $data = $request->only('value', 'unit');
        
@@ -118,26 +118,24 @@ class LogController extends Controller
             return response()->json(['error' => $validator->messages()], 200);
         }
 
+        $sensor = $sensor_detail->sensor;
         $newLogSensor = LogSensor::create([
-            'sensor_id' => $sensor_id,
-            'sensor_detail_id' => $sensor_detail_id,
+            'sensor_id' => $sensor->id,
+            'sensor_detail_id' => $sensor_detail->id,
             'value' => $request->value,
             'unit' => $request->unit,
         ]);
 
-        $sensor = Sensor::find($sensor_id);
-        $sensorDetail = SensorDetail::find($sensor_detail_id);
-
-        if($sensorDetail->unit != $request->unit) {
+        if($sensor_detail->unit != $request->unit) {
             return response()->json([
                 'success' => true,
                 'message' => 'Unit is not equal, can not define if alert is enable!',
                 'log_data' => $newLogSensor
             ], Response::HTTP_OK);
         }
-        if($sensorDetail->lower_limit > $request->value || $sensorDetail->upper_limit < $request->value) {
+        if($sensor_detail->lower_limit > $request->value || $sensor_detail->upper_limit < $request->value) {
             $sensor->is_alert = true;
-            $sensor->alert_text = $sensorDetail->alert_text;
+            $sensor->alert_text = $sensor_detail->alert_text;
             $sensor->save();
         }
 

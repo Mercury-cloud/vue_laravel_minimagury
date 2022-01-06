@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Device extends Model
 {
@@ -12,6 +13,7 @@ class Device extends Model
     protected $fillable = [
         'user_id', // ユーザーID
         'field_id', // 圃場ID
+        'slug', // エンドポイントURL
         'name', // 機器名
         'icon', // アイコン
         'description', // 使用目的
@@ -33,6 +35,16 @@ class Device extends Model
         'alert_text', // 現在のアラート内容
     ];
 
+    protected $dates = [
+    ];
+
+    protected $casts = [
+    ];
+    
+    protected $appends = [
+        // 'endpoint_url',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -40,5 +52,13 @@ class Device extends Model
     public function field()
     {
         return $this->belongsTo(Field::class);
+    }
+
+    public function createSlug() {
+        $this->slug = Str::uuid();
+    }
+
+    public function getEndpointUrlAttribute(){
+        // return route('api.v1.log.sensor', $this->slug);
     }
 }
