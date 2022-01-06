@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 * 管理画面
 ***********/ 
 
-Route::get('/login',         [AuthController::class, 'login'])->name('manage.login');
-Route::post('/login',        [AuthController::class, 'loginAttempt'])->name('manage.login.attempt');
+Route::get('/manage/login',         [AuthController::class, 'login'])->name('manage.login');
+Route::post('/manage/login',        [AuthController::class, 'loginAttempt'])->name('manage.login.attempt');
 Route::get('/manage/logout', [AuthController::class, 'logout'])->name('manage.logout');
 
 Route::get('/manage/user',              [UserController::class, 'index'])->name('manage.user.index');
