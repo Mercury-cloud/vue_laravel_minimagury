@@ -32,6 +32,3 @@ class AuthController extends Controller
     }
 
 }
-
-//echo "tetete";exit;
-//->attempt($request->only(["email", "password"]), $request->remember)
