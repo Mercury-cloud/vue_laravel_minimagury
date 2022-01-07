@@ -116,6 +116,7 @@ class SensorController extends Controller
     public function edit(Request $request, Sensor $sensor)
     {
         $sensor->update($request->all());
+        $sensor->load('details');
         return response()->json([
             'success' => true,
             'message' => 'Sensor info is updated successfully!',
