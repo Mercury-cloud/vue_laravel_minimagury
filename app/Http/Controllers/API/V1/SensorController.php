@@ -184,60 +184,16 @@ class SensorController extends Controller
         }
     }
 
-    /**
-     * Store a newly created sensor detail in DB.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function add_sensor_detail(Request $request)
-    {   
-        $data = $request->only('name', 'type', 'sensor_id', 'precision', 'unit');
-        $validator = Validator::make($data, [
-            'sensor_id' => 'required|numeric',
-            'type' => 'required|string',
-            'name' => 'required|string',
-            'precision' => 'required|numeric',
-            'unit' => 'required|string'
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
-
-        $newSensorDetail = SensorDetail::create([
-            'sensor_id' => $request->sensor_id,
-            'type' => $request->type,
-            'name' => $request->name,
-            'precision' => $request->precision,
-            'unit' => $request->unit
-        ]);
-        //SensorDetail created, return success response
-        return response()->json([
-            'success' => true,
-            'message' => 'Sensor Detail "'.$request->name.'" is saved successfully',
-            'data' => $newSensorDetail
-        ], Response::HTTP_OK);
-    }
-
-    public function edit_sensor_detail(Request $request, $id)
+    public function detailEdit(Request $request, Sensor $sensor,SensorDetail $sensor_detail)
     {
         // Sensor Detail update with request data
-        $sensor_detail = SensorDetail::find($id);
-        if($sensor_detail) {
-            $sensor_detail->update($request->all());
-            return response()->json([
-                'success' => true,
-                'message' => 'Sensor detail is updated successfully!',
-            ]);
-        }
-        else {
-            // Respond error when sensor detail is not found
-            return response()->json([
-                'success' => false,
-                'message' => 'Sensor detail not found!',
-            ], 500);
-        }
+        $sensor_detail->update($request->all());
+        $sensor->load('details');
+        return response()->json([
+            'success' => true,
+            'message' => 'Sensor detail is updated successfully!',
+            'data' => $sensor,
+        ]);
     }
 
     public function delete_sensor_detail(Request $request, $id)
