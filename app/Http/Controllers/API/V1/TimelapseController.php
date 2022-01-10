@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\API\V1\Timelapse\AddRequest;
+use App\Http\Requests\API\V1\Timelapse\EditRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,19 +13,8 @@ use App\Models\Timelapse;
 
 class TimelapseController extends Controller
 {
-    public function add_timelapse(Request $request)
+    public function addTimelapse(AddRequest $request)
     {   
-        $data = $request->only('name', 'interval', 'setting');
-        $validator = Validator::make($data, [
-            'name' => 'required|string|unique:scenes',
-            'interval' => 'required|numeric',
-            'setting' => 'required|string'
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
-
         $newTimelapse = Timelapse::create([
             'name' => $request->name,
             'interval' => $request->interval,
@@ -37,7 +28,7 @@ class TimelapseController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function edit_timelapse_info(Request $request, $id)
+    public function editTimelapseInfo(EditRequest $request, $id)
     {
         // Timelapse update with request data
         $timelapse = Timelapse::find($id);
@@ -57,7 +48,7 @@ class TimelapseController extends Controller
         }
     }
 
-    public function delete_timelapse(Request $request, $id)
+    public function deleteTimelapse($id)
     {
         // Timelapse delete by id
         $timelapse = Timelapse::find($id);
@@ -77,7 +68,7 @@ class TimelapseController extends Controller
         }
     }
 
-    public function get_timelapse(Request $request, $id)
+    public function getTimelapse($id)
     {
         // Get timelapse by id
         $timelapse = Timelapse::find($id);
@@ -96,7 +87,7 @@ class TimelapseController extends Controller
         }
     }
 
-    public function get_timelapse_url(Request $request, $id)
+    public function getTimelapseUrl($id)
     {
         // Get timelapse by id
         $timelapse = Timelapse::find($id);

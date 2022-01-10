@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\API\V1;
+namespace App\Http\Requests\API\V1\Setting;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoginRequest extends FormRequest
+class SplashRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,24 +23,19 @@ class LoginRequest extends FormRequest
      *
      * @return array
      */
-
-    
     public function rules()
     {
-        
         return [
-            "email" => "required",
-            "password" => "required",
+            'splash_file' => 'required|string',
+            'splash_color' => ['required', 'regex:/^(#(?:[0-9a-f]{2}){2,4}|#[0-9a-f]{3}|(?:rgba?|hsla?)\((?:\d+%?(?:deg|rad|grad|turn)?(?:,|\s)+){2,3}[\s\/]*[\d\.]+%?\))$/i'],
         ];
-       
     }
+
 
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
             response()->json( ["errors" => '不正なリクエストです', 'validations' => $validator->errors()], 422 )
         );
-        
     }
-  
 }

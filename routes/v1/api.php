@@ -32,7 +32,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 // Route::group(['middleware' => ['jwt.verify']], function() {
 Route::middleware('auth:api')->group(function(){
-    Route::get('/user', [UserController::class, 'get_user']);
+    Route::get('/user', [AuthController::class, 'getUser']);
 
     // 圃場
     Route::get('field/list', [FieldController::class, 'list']);
@@ -47,61 +47,61 @@ Route::middleware('auth:api')->group(function(){
     Route::get('sensor/detail/{sensor}', [SensorController::class, 'detail']);
     Route::delete('sensor/delete/{sensor}', [SensorController::class, 'delete']);
     Route::post('sensor/edit/{sensor}', [SensorController::class, 'edit']);
-    Route::post('sensor-values-save/{id}', [SensorController::class, 'save_sensor_values']);
-    Route::get('sensor-values-get/{id}', [SensorController::class, 'get_sensor_values']);
-    Route::post('sensor-detail-add', [SensorController::class, 'add_sensor_detail']);
-    Route::post('sensor-detail-edit/{id}', [SensorController::class, 'edit_sensor_detail']);
-    Route::delete('sensor-detail-delete/{id}', [SensorController::class, 'delete_sensor_detail']);
-    Route::get('sensor-get-by-field/{field_id}', [SensorController::class, 'get_sensor_by_field']);
+    Route::post('sensor-values-save/{id}', [SensorController::class, 'saveSensorValues']);
+    Route::get('sensor-values-get/{id}', [SensorController::class, 'getSensorValues']);
+    Route::post('sensor-detail-add', [SensorController::class, 'addSensorDetail']);
+    Route::post('sensor-detail-edit/{id}', [SensorController::class, 'editSensorDetail']);
+    Route::delete('sensor-detail-delete/{id}', [SensorController::class, 'deleteSensorDetail']);
+    Route::get('sensor-get-by-field/{field_id}', [SensorController::class, 'getSensorByField']);
 
     // 機器
     Route::get('device/list', [DeviceController::class, 'list']);
-    Route::post('device-add', [DeviceController::class, 'add_device']);
-    Route::post('device-info-edit/{id}', [DeviceController::class, 'edit_device_info']);
-    Route::delete('device-info-delete/{id}', [DeviceController::class, 'delete_device_info']);
-    Route::post('device-status-save/{id}', [DeviceController::class, 'save_device_status']);
-    Route::get('device-status-get/{id}', [DeviceController::class, 'get_device_status']);
-    Route::post('device-temperature-save/{id}', [DeviceController::class, 'save_device_temperature']);
-    Route::get('device-temperature-get/{id}', [DeviceController::class, 'get_device_temperature']);
-    Route::post('device-airflow-save/{id}', [DeviceController::class, 'save_device_airflow']);
-    Route::get('device-airflow-get/{id}', [DeviceController::class, 'get_device_airflow']);
-    Route::post('device-wind-direction-save/{id}', [DeviceController::class, 'save_device_wind_direction']);
-    Route::get('device-wind-direction-get/{id}', [DeviceController::class, 'get_device_wind_direction']);
-    Route::get('device-show/{id}', [DeviceController::class, 'show_device']);
+    Route::post('device-add', [DeviceController::class, 'addDevice']);
+    Route::post('device-info-edit/{id}', [DeviceController::class, 'editDeviceInfo']);
+    Route::delete('device-info-delete/{id}', [DeviceController::class, 'deleteDeviceInfo']);
+    Route::post('device-status-save/{id}', [DeviceController::class, 'saveDeviceStatus']);
+    Route::get('device-status-get/{id}', [DeviceController::class, 'getDeviceStatus']);
+    Route::post('device-temperature-save/{id}', [DeviceController::class, 'saveDeviceTemperature']);
+    Route::get('device-temperature-get/{id}', [DeviceController::class, 'getDeviceTemperature']);
+    Route::post('device-airflow-save/{id}', [DeviceController::class, 'saveDeviceAirflow']);
+    Route::get('device-airflow-get/{id}', [DeviceController::class, 'getDeviceAirflow']);
+    Route::post('device-wind-direction-save/{id}', [DeviceController::class, 'saveDeviceWindDirection']);
+    Route::get('device-wind-direction-get/{id}', [DeviceController::class, 'getDeviceWindDirection']);
+    Route::get('device-show/{id}', [DeviceController::class, 'showDevice']);
 
 
     // シーン
-    Route::post('scene-add', [SceneController::class, 'add_scene']);
-    Route::get('scene-show/{id}', [SceneController::class, 'show_scene']);
-    Route::post('scene-info-edit/{id}', [SceneController::class, 'edit_scene_info']);
-    Route::delete('scene-delete/{id}', [SceneController::class, 'delete_scene']);
-    Route::get('scene-list', [SceneController::class, 'list_scene']);
-    Route::post('scene-condition-add', [SceneController::class, 'add_scene_condition']);
-    Route::get('scene-condition-show/{id}', [SceneController::class, 'show_scene_condition']);
-    Route::post('scene-condition-edit/{id}', [SceneController::class, 'edit_scene_condition']);
-    Route::delete('scene-condition-delete/{id}', [SceneController::class, 'delete_scene_condition']);
-    Route::get('scene-condition-list', [SceneController::class, 'list_scene_condition']);
-    Route::get('sensor-show-by-scene/{scene_id}', [SceneController::class, 'show_sensor_by_scene']);
-    Route::get('scene-show-by-device/{device_id}', [SceneController::class, 'show_scene_by_device']);
+    Route::post('scene-add', [SceneController::class, 'addScene']);
+    Route::get('scene-show/{id}', [SceneController::class, 'showScene']);
+    Route::post('scene-info-edit/{id}', [SceneController::class, 'editSceneInfo']);
+    Route::delete('scene-delete/{id}', [SceneController::class, 'deleteScene']);
+    Route::get('scene-list', [SceneController::class, 'list']);
+    Route::post('scene-condition-add', [SceneController::class, 'addSceneCondition']);
+    Route::get('scene-condition-show/{id}', [SceneController::class, 'showSceneCondition']);
+    Route::post('scene-condition-edit/{id}', [SceneController::class, 'editSceneCondition']);
+    Route::delete('scene-condition-delete/{id}', [SceneController::class, 'deleteSceneCondition']);
+    Route::get('scene-condition-list', [SceneController::class, 'listSceneCondition']);
+    Route::get('sensor-show-by-scene/{scene_id}', [SceneController::class, 'showSensorByScene']);
+    Route::get('scene-show-by-device/{device_id}', [SceneController::class, 'showSceneByDevice']);
 
 
     //カメラ
-    Route::post('camera-add', [CameraController::class, 'add_camera']);
-    Route::get('camera-list', [CameraController::class, 'list_cameras']);
-    Route::get('camera-get-by-field/{field_id}', [CameraController::class, 'get_camera_by_field']);
-    Route::get('camera-record-data-get/{id}', [CameraController::class, 'get_camera_record_data']);
-    Route::post('camera-type-save/{id}', [CameraController::class, 'save_camera_type']);
-    Route::get('camera-detail-get/{id}', [CameraController::class, 'get_camera_detail']);
-    Route::post('camera-for-timelapse-edit/{id}', [CameraController::class, 'edit_camera_for_timelapse']);
-    Route::post('camera-edit/{id}', [CameraController::class, 'edit_camera']);
-    Route::delete('camera-delete/{id}', [CameraController::class, 'delete_camera']);
+    Route::post('camera-add', [CameraController::class, 'addCamera']);
+    Route::get('camera-list', [CameraController::class, 'listCameras']);
+    Route::get('camera-get-by-field/{field_id}', [CameraController::class, 'getCameraByField']);
+    Route::get('camera-record-data-get/{id}', [CameraController::class, 'getCameraRecordData']);
+    Route::post('camera-type-save/{id}', [CameraController::class, 'saveCameraType']);
+    Route::get('camera-detail-get/{id}', [CameraController::class, 'getCameraDetail']);
+    Route::post('camera-for-timelapse-edit/{id}', [CameraController::class, 'editCameraForTimelapse']);
+    Route::post('camera-edit/{id}', [CameraController::class, 'editCamera']);
+    Route::delete('camera-delete/{id}', [CameraController::class, 'deleteCamera']);
 
     // タイムラプス
-    Route::post('timelapse-add', [TimelapseController::class, 'add_timelapse']);
-    Route::post('timelapse-info-edit/{id}', [TimelapseController::class, 'edit_timelapse_info']);
-    Route::delete('timelapse-delete/{id}', [TimelapseController::class, 'delete_timelapse']);
-    Route::get('timelapse-get/{id}', [TimelapseController::class, 'get_timelapse']);
-    Route::get('timelapse-url-get/{id}', [TimelapseController::class, 'get_timelapse_url']);
+    Route::post('timelapse-add', [TimelapseController::class, 'addTimelapse']);
+    Route::post('timelapse-info-edit/{id}', [TimelapseController::class, 'editTimelapseInfo']);
+    Route::delete('timelapse-delete/{id}', [TimelapseController::class, 'deleteTimelapse']);
+    Route::get('timelapse-get/{id}', [TimelapseController::class, 'getTimelapse']);
+    Route::get('timelapse-url-get/{id}', [TimelapseController::class, 'getTimelapseUrl']);
 
 
     // 設定
@@ -111,26 +111,28 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/setting/user/password', [SettingController::class, 'settingUserPassword']);
     Route::post('/setting/user/name', [SettingController::class, 'settingUserName']);
     Route::post('/setting/user/email', [SettingController::class, 'settingUserEmail']);
+    Route::post('/setting/user/color', [SettingController::class, 'settingUserColor']);
+    Route::post('/setting/user/alert', [SettingController::class, 'settingUserAlert']);
 
     //viewer
-    Route::post('viewer-add', [ViewerController::class, 'add_viewer']);
-    Route::post('viewer-info-edit/{id}', [ViewerController::class, 'edit_viewer_info']);
-    Route::delete('viewer-delete/{id}', [ViewerController::class, 'delete_viewer']);
-    Route::get('viewer-list', [ViewerController::class, 'list_viewer']);
-    Route::get('get-main-view-data/{id}', [ViewerController::class, 'get_main_view_data']);
-    Route::get('get-log-detail/{id}', [ViewerController::class, 'get_log_detail']);
-    Route::get('get-relations/{id}', [ViewerController::class, 'get_relations']);
-    Route::post('edit-camera-relation/{id}', [ViewerController::class, 'edit_camera_relation']);
-    Route::post('edit-sensor-relation/{id}', [ViewerController::class, 'edit_sensor_relation']);
-    Route::post('viewer/login', [ViewerController::class, 'viewer_login']);
+    Route::post('viewer-add', [ViewerController::class, 'addViewer']);
+    Route::post('viewer-info-edit/{id}', [ViewerController::class, 'editViewerInfo']);
+    Route::delete('viewer-delete/{id}', [ViewerController::class, 'deleteViewer']);
+    Route::get('viewer-list', [ViewerController::class, 'listViewer']);
+    Route::get('get-main-view-data/{id}', [ViewerController::class, 'getMainViewData']);
+    Route::get('get-log-detail/{id}', [ViewerController::class, 'getLogDetail']);
+    Route::get('get-relations/{id}', [ViewerController::class, 'getRelations']);
+    Route::post('edit-camera-relation/{id}', [ViewerController::class, 'editCameraRelation']);
+    Route::post('edit-sensor-relation/{id}', [ViewerController::class, 'editSensorRelation']);
+    Route::post('viewer/login', [ViewerController::class, 'viewerLogin']);
 });
 
 // middleware('auth:api')->
 // 履歴
 Route::name('log.')->group(function(){
-    Route::get('action-log-list', [LogController::class, 'list_action_logs']);
-    Route::get('camera-log-documentary-get/{camera_id}', [LogController::class, 'get_camera_log']);
-    Route::post('log/camera/{camera_id}', [LogController::class, 'save_camera_log']);
-    Route::get('sensor-log-get/{sensor_id}/{sensor_detail_id}', [LogController::class, 'get_sensor_log']);
-    Route::post('log/sensor/{sensor_detail:slug}', [LogController::class, 'save_sensor_log'])->name('sensor');
+    Route::get('action-log-list', [LogController::class, 'listActionLogs']);
+    Route::get('camera-log-documentary-get/{camera_id}', [LogController::class, 'getCameraLog']);
+    Route::post('log/camera/{camera_id}', [LogController::class, 'saveCameraLog']);
+    Route::get('sensor-log-get/{sensor_id}/{sensor_detail_id}', [LogController::class, 'getSensorLog']);
+    Route::post('log/sensor/{sensor_id}/{sensor_detail_id}/{slug}', [LogController::class, 'saveSensorLog'])->name('sensor');
 });

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\API\V1\Viewer\AddRequest;
+use App\Http\Requests\API\V1\Viewer\EditRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -18,21 +20,8 @@ use App\Models\LogSensor;
 
 class ViewerController extends Controller
 {
-    public function add_viewer(Request $request)
+    public function addViewer(AddRequest $request)
     {   
-        $data = $request->only('user_id', 'login_id', 'password_text', 'expiration_date', 'password');
-        $validator = Validator::make($data, [
-            'user_id' => 'required|numeric',
-            'login_id' => 'required|string|unique:viewers',
-            'password_text' => 'required|string',
-            'expiration_date' => 'required|date_format:Y-m-d',
-            'password' => 'required|string|min:6|max:50'
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
-        
         $newViewer = Viewer::create([
             'user_id' => $request->user_id,
             'login_id' => $request->login_id,
@@ -48,7 +37,7 @@ class ViewerController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function edit_viewer_info(Request $request, $id)
+    public function editViewerInfo(EditRequest $request, $id)
     {
         // Viewer update with request data
         $viewer = Viewer::find($id);
@@ -68,7 +57,7 @@ class ViewerController extends Controller
         }
     }
 
-    public function delete_viewer(Request $request, $id)
+    public function deleteViewer(Request $request, $id)
     {
         // Viewer delete by id
         $viewer = Viewer::find($id);
@@ -88,7 +77,7 @@ class ViewerController extends Controller
         }
     }
 
-    public function list_viewer(Request $request)
+    public function listViewer(Request $request)
     {
         // list viewers
         $viewerlist = Viewer::get();
@@ -107,7 +96,7 @@ class ViewerController extends Controller
         }
     }
 
-    public function get_main_view_data(Request $request, $id)
+    public function getMainViewData(Request $request, $id)
     {
         // get relations from viewer
         $viewerCameraRelation = ViewerCameraRelation::where("viewer_id", $id)->get();
@@ -139,7 +128,7 @@ class ViewerController extends Controller
         
     }
 
-    public function get_log_detail(Request $request, $id)
+    public function getLogDetail(Request $request, $id)
     {
         // get relations from viewer
         $viewerSensorRelation = ViewerSensorRelation::where("viewer_id", $id)->first();
@@ -156,7 +145,7 @@ class ViewerController extends Controller
         
     }
 
-    public function get_relations(Request $request, $id)
+    public function getRelations(Request $request, $id)
     {
         // get relations from viewer
         $viewer = Viewer::find($id);
@@ -181,7 +170,7 @@ class ViewerController extends Controller
 
 
 
-    public function edit_camera_relation(Request $request, $id)
+    public function editCameraRelation(Request $request, $id)
     {
         // Viewer update with request data
         $viewerCameraRelation = ViewerCameraRelation::where("viewer_id", $id)->first();
@@ -205,7 +194,7 @@ class ViewerController extends Controller
         }
     }
 
-    public function edit_sensor_relation(Request $request, $id)
+    public function editSensorRelation(Request $request, $id)
     {
         // Viewer update with request data
         $viewerSensorRelation = ViewerSensorRelation::where("viewer_id", $id)->first();
@@ -229,7 +218,7 @@ class ViewerController extends Controller
         }
     }
 
-    public function viewer_login(Request $request)
+    public function viewerLogin(Request $request)
     {   
         $viewer = Viewer::where("user_id", "=", $request->user_id)->where("login_id", "=", $request->login_id)->first();
         if($viewer) {

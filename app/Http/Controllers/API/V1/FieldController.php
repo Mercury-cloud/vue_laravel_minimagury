@@ -27,7 +27,7 @@ class FieldController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Field\NameStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function add(NameStoreRequest $request)
@@ -39,7 +39,7 @@ class FieldController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Scene "'.$request->name.'" is created successfully',
+            'message' => 'Field "'.$request->name.'" is created successfully',
             'data' => $field
         ], Response::HTTP_OK);
     }
@@ -61,7 +61,7 @@ class FieldController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Field\NameStoreRequest  $request
      * @param  Field  $field
      * @return \Illuminate\Http\Response
      */

@@ -29,4 +29,9 @@ class AuthController extends Controller
         return response()->json(["success" => 'ログインしました', 'api_token' => auth()->user()->api_token, 'user' => auth()->user()]);
     }
 
+    public function getUser()
+    {
+        return response()->json(auth()->user());
+    }
+
 }

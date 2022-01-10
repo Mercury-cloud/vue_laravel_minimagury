@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\API\V1\Log\CameraLogRequest;
+use App\Http\Requests\API\V1\Log\SensorLogRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +18,7 @@ use App\Models\SensorDetail;
 
 class LogController extends Controller
 {
-    public function list_action_logs(Request $request)
+    public function listActionLogs()
     {
         // List all action logs
         $actionlist = LogAction::get();
@@ -35,7 +37,7 @@ class LogController extends Controller
         }
     }
 
-    public function get_camera_log(Request $request, $camera_id)
+    public function getCameraLog($camera_id)
     {
         // List all camera log documentaries
         $cameraloglist = LogCameraDocumentary::where("camera_id", "=", $camera_id)->get();
@@ -54,20 +56,8 @@ class LogController extends Controller
         }
     }
 
-    public function save_camera_log(Request $request, $camera_id)
+    public function saveCameraLog(CameraLogRequest $request, $camera_id)
     {
-        $data = $request->only('camera_id', 'file', 'date');
-       
-        $validator = Validator::make($data, [
-            'camera_id' => 'required|numeric',
-            'file' => 'required|string',
-            'date' => 'required|date_format:Y-m-d'
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
-
         $newLogCamera = LogCameraDocumentary::create([
             'camera_id' => $camera_id,
             'file' => $request->file,
@@ -86,7 +76,7 @@ class LogController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function get_sensor_log(Request $request, $sensor_id, $sensor_detail_id)
+    public function getSensorLog($sensor_id, $sensor_detail_id)
     {
         // List all sensor log
         $sensorloglist = LogSensor::where("sensor_id", "=", $sensor_id)->where("sensor_detail_id", "=", $sensor_detail_id)->get();
@@ -105,27 +95,18 @@ class LogController extends Controller
         }
     }
 
-    public function save_sensor_log(Request $request, SensorDetail $sensor_detail)
+    public function saveSensorLog(SensorLogRequest $request, $sensor_detail_id, $sensor_id, $slug )
     {
-        $data = $request->only('value', 'unit');
-       
-        $validator = Validator::make($data, [
-            'value' => 'required|numeric',
-            'unit' => 'required|string'
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
-
-        $sensor = $sensor_detail->sensor;
         $newLogSensor = LogSensor::create([
-            'sensor_id' => $sensor->id,
-            'sensor_detail_id' => $sensor_detail->id,
+            'sensor_id' => $sensor_id,
+            'sensor_detail_id' => $sensor_detail_id,
             'value' => $request->value,
             'unit' => $request->unit,
         ]);
 
+        $sensor = Sensor::where('id','=',$sensor_id)->first();
+        $sensor_detail = SensorDetail::where('id','=',$sensor_detail_id)->where('slug','=',$slug)->first();
+        
         if($sensor_detail->unit != $request->unit) {
             return response()->json([
                 'success' => true,
@@ -133,6 +114,7 @@ class LogController extends Controller
                 'log_data' => $newLogSensor
             ], Response::HTTP_OK);
         }
+
         if($sensor_detail->lower_limit > $request->value || $sensor_detail->upper_limit < $request->value) {
             $sensor->is_alert = true;
             $sensor->alert_text = $sensor_detail->alert_text;

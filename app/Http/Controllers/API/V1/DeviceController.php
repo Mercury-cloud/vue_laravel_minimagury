@@ -5,6 +5,12 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Device;
 use Illuminate\Http\Request;
+use App\Http\Requests\API\V1\Device\AddRequest;
+use App\Http\Requests\API\V1\Device\EditRequest;
+use App\Http\Requests\API\V1\Device\StatusRequest;
+use App\Http\Requests\API\V1\Device\TemperatureRequest;
+use App\Http\Requests\API\V1\Device\AirflowRequest;
+use App\Http\Requests\API\V1\Device\WindDirectionRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -17,23 +23,11 @@ class DeviceController extends Controller
     /**
      * Store a newly created device into the DB.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Device\AddRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function add_device(Request $request)
+    public function addDevice(AddRequest $request)
     {   
-        $data = $request->only('name', 'type', 'user_id', 'field_id');
-        $validator = Validator::make($data, [
-            'name' => 'required|string',
-            'type' => ['required', Rule::in(['switch', 'air_conditioner'])],
-            'user_id' => 'required|numeric',
-            'field_id' => 'required|numeric',
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
-
         $newDevice = Device::create([
             'name' => $request->name,
             'type' => $request->type,
@@ -51,11 +45,11 @@ class DeviceController extends Controller
     /**
      * Update the device.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Device\EditRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit_device_info(Request $request, $id)
+    public function editDeviceInfo(EditRequest $request, $id)
     {
         // Device update with request data
         $device = Device::find($id);
@@ -81,7 +75,7 @@ class DeviceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete_device_info(Request $request, $id)
+    public function deleteDeviceInfo($id)
     {
         // Device delete by id
         $device = Device::find($id);
@@ -104,11 +98,11 @@ class DeviceController extends Controller
     /**
      * save the device status.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Device\StatusRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function save_device_status(Request $request, $id)
+    public function saveDeviceStatus(StatusRequest $request, $id)
     {
 
         // Update device status by id
@@ -133,11 +127,10 @@ class DeviceController extends Controller
     /**
      * get the device status.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_device_status(Request $request, $id)
+    public function getDeviceStatus($id)
     {
         // Get device status by id
         $device = Device::find($id);
@@ -159,11 +152,11 @@ class DeviceController extends Controller
     /**
      * save the device temperature.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Device\TemperatureRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function save_device_temperature(Request $request, $id)
+    public function saveDeviceTemperature(TemperatureRequest $request, $id)
     {
 
         // Update device temperature by id
@@ -188,11 +181,10 @@ class DeviceController extends Controller
     /**
      * get the device temperature.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_device_temperature(Request $request, $id)
+    public function getDeviceTemperature($id)
     {
         // Get device temperature by id
         $device = Device::find($id);
@@ -214,20 +206,12 @@ class DeviceController extends Controller
     /**
      * save the device airflow.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Device\AirflowRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function save_device_airflow(Request $request, $id)
+    public function saveDeviceAirflow(AirflowRequest $request, $id)
     {
-        $data = $request->only('air_flow');
-        $validator = Validator::make($data, [
-            'air_flow' => ['required', Rule::in(['low', 'mid', 'high', 'auto', 'power'])],
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
         // Update device airflow by id
         $device = Device::find($id);
         if($device) {
@@ -250,11 +234,10 @@ class DeviceController extends Controller
     /**
      * get the device airflow.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_device_airflow(Request $request, $id)
+    public function getDeviceAirflow($id)
     {
         // Get device airflow by id
         $device = Device::find($id);
@@ -276,20 +259,13 @@ class DeviceController extends Controller
     /**
      * save the device wind direction.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Device\WindDirectionRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function save_device_wind_direction(Request $request, $id)
+    public function saveDeviceWindDirection(WindDirectionRequest $request, $id)
     {
-        $data = $request->only('wind_direction');
-        $validator = Validator::make($data, [
-            'wind_direction' => ['required', Rule::in(['vertical', 'horizontal', 'auto'])],
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
+        
         // Update device wind_direction by id
         $device = Device::find($id);
         if($device) {
@@ -312,11 +288,10 @@ class DeviceController extends Controller
     /**
      * get the device wind_direction.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_device_wind_direction(Request $request, $id)
+    public function getDeviceWindDirection($id)
     {
         // Get device wind_direction by id
         $device = Device::find($id);
@@ -343,7 +318,7 @@ class DeviceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show_device($id)
+    public function showDevice($id)
     {
         // Get device by id
         $device = Device::find($id);

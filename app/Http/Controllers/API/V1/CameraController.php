@@ -4,6 +4,10 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\API\V1\Camera\AddRequest;
+use App\Http\Requests\API\V1\Camera\TypeRequest;
+use App\Http\Requests\API\V1\Camera\ForTimelapseRequest;
+use App\Http\Requests\API\V1\Camera\EditRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,19 +15,8 @@ use App\Models\Camera;
 
 class CameraController extends Controller
 {
-    public function add_camera(Request $request)
+    public function addCamera(AddRequest $request)
     {   
-        $data = $request->only('name', 'user_id', 'field_id');
-        $validator = Validator::make($data, [
-            'name' => 'required|string|unique:cameras',
-            'user_id' => 'required|numeric',
-            'field_id' => 'required|numeric',
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
-
         $newCamera = Camera::create([
             'name' => $request->name,
             'user_id' => $request->user_id,
@@ -37,7 +30,7 @@ class CameraController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function list_cameras(Request $request)
+    public function listCameras()
     {
         // List all cameras
         $cameralist = Camera::get();
@@ -56,7 +49,7 @@ class CameraController extends Controller
         }
     }
 
-    public function get_camera_by_field($field_id)
+    public function getCameraByField($field_id)
     {
         // Get Cameras by field id
         $cameras = Camera::where('field_id', '=', $field_id)->get();
@@ -75,7 +68,7 @@ class CameraController extends Controller
         }
     }
 
-    public function get_camera_record_data(Request $request, $id)
+    public function getCameraRecordData($id)
     {
         // Get camera value by id
         $camera = Camera::find($id);
@@ -94,7 +87,7 @@ class CameraController extends Controller
         }
     }
 
-    public function save_camera_type(Request $request, $id)
+    public function saveCameraType(TypeRequest $request, $id)
     {
         // Update camera type by id
         $camera = Camera::find($id);
@@ -115,7 +108,7 @@ class CameraController extends Controller
         }
     }
 
-    public function get_camera_detail(Request $request, $id)
+    public function getCameraDetail($id)
     {
         // Get camera value by id
         $camera = Camera::find($id);
@@ -134,7 +127,7 @@ class CameraController extends Controller
         }
     }
 
-    public function edit_camera_for_timelapse(Request $request, $id)
+    public function editCameraForTimelapse(ForTimelapseRequest $request, $id)
     {
         // Update camera for_timelapse by id
         $camera = Camera::find($id);
@@ -155,7 +148,7 @@ class CameraController extends Controller
         }
     }
 
-    public function edit_camera(Request $request, $id)
+    public function editCamera(EditRequest $request, $id)
     {
         // Camera update with request data
         $camera = Camera::find($id);
@@ -175,7 +168,7 @@ class CameraController extends Controller
         }
     }
 
-    public function delete_camera(Request $request, $id)
+    public function deleteCamera($id)
     {
         // Camera delete by id
         $camera = Camera::find($id);

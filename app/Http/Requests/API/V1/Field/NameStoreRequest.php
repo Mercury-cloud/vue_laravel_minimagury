@@ -34,7 +34,7 @@ class NameStoreRequest extends FormRequest
     // protected function failedValidation(Validator $validator)
     // {
     //     throw new HttpResponseException(
-    //         response()->json( ["errors" => '不正なリクエストです', 'validations' => $validator], 422 )
+    //         response()->json( ["errors" => '不正なリクエストです', 'validations' => $validator->errors()], 422 )
     //     );
     // }
 }

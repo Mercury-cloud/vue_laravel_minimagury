@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Scene;
 use Illuminate\Http\Request;
+use App\Http\Requests\API\V1\Scene\AddRequest;
+use App\Http\Requests\API\V1\Scene\EditRequest;
+use App\Http\Requests\API\V1\Scene\ConditionAddRequest;
+use App\Http\Requests\API\V1\Scene\ConditionEditRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+
+use App\Models\Scene;
+use App\Models\SceneCondition;
 
 class SceneController extends Controller
 {
@@ -16,21 +22,11 @@ class SceneController extends Controller
     /**
      * Store a newly created scene in DB.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Scene\AddRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function add_scene(Request $request)
+    public function addScene(AddRequest $request)
     {
-        $data = $request->only('name', 'device_id');
-        $validator = Validator::make($data, [
-            'name' => 'required|string|unique:scenes',
-            'device_id' => 'required|numeric'
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
-
         $newScene = Scene::create([
             'name' => $request->name,
             'device_id' => $request->device_id
@@ -49,7 +45,7 @@ class SceneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show_scene($id)
+    public function showScene($id)
     {
         // Get scene by id
         $scene = Scene::find($id);
@@ -73,11 +69,11 @@ class SceneController extends Controller
     /**
      * Update the scene.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Scene\EditRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit_scene_info(Request $request, $id)
+    public function editSceneInfo(EditRequest $request, $id)
     {
         // Scene update with request data
         $scene = Scene::find($id);
@@ -103,7 +99,7 @@ class SceneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete_scene($id)
+    public function deleteScene($id)
     {
         // Scene delete by id
         $scene = Scene::find($id);
@@ -150,22 +146,11 @@ class SceneController extends Controller
     /**
      * Add a new scene condition in the DB.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Scene\ConditionAddRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function add_scene_condition(Request $request)
+    public function addSceneCondition(ConditionAddRequest $request)
     {
-        $data = $request->only('name', 'scene_id', 'type' );
-        $validator = Validator::make($data, [
-            'name' => 'required|string|unique:scenes',
-            'scene_id' => 'required|numeric',
-            'type' => ['required', Rule::in(['numeric', 'timer'])]
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
-
         $newSceneCondition = SceneCondition::create([
             'name' => $request->name,
             'scene_id' => $request->scene_id,
@@ -185,7 +170,7 @@ class SceneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show_scene_condition($id)
+    public function showSceneCondition($id)
     {
         // Get scene condition by id
         $sceneCondition = SceneCondition::find($id);
@@ -209,11 +194,11 @@ class SceneController extends Controller
     /**
      * Update the scene condition.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Scene\ConditionEditRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit_scene_condition(Request $request, $id)
+    public function editSceneCondition(ConditionEditRequest $request, $id)
     {
         // Scene condition update with request data
         $sceneCondition = SceneCondition::find($id);
@@ -239,7 +224,7 @@ class SceneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete_scene_condition($id)
+    public function deleteSceneCondition($id)
     {
         // Scene Condition delete by id
         $sceneCondition = SceneCondition::find($id);
@@ -264,7 +249,7 @@ class SceneController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list_scene_condition()
+    public function listSceneCondition()
     {
         // List all sceneConditions
         $sceneConditionList = SceneCondition::get();
@@ -289,7 +274,7 @@ class SceneController extends Controller
      * @param  int  $scene_id
      * @return \Illuminate\Http\Response
      */
-    public function show_sensor_by_scene($scene_id)
+    public function showSensorByScene($scene_id)
     {
         // Get SceneCondition by scene id
         $scene_conditions = SceneCondition::where('scene_id', '=', $scene_id)->get();
@@ -324,7 +309,7 @@ class SceneController extends Controller
      * @param  int  $device_id
      * @return \Illuminate\Http\Response
      */
-    public function show_scene_by_device($device_id)
+    public function showSceneByDevice($device_id)
     {
         // Get Scene by device id
         $scenes = Scene::where('device_id', '=', $device_id)->get();

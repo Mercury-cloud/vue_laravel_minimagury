@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\API\V1;
+namespace App\Http\Requests\API\V1\Device;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
-class LoginRequest extends FormRequest
+class StatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,24 +24,18 @@ class LoginRequest extends FormRequest
      *
      * @return array
      */
-
-    
     public function rules()
     {
-        
         return [
-            "email" => "required",
-            "password" => "required",
+            'status' => Rule::in(['ON', 'OFF']),
         ];
-       
     }
+
 
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
             response()->json( ["errors" => '不正なリクエストです', 'validations' => $validator->errors()], 422 )
         );
-        
     }
-  
 }

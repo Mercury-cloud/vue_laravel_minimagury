@@ -5,6 +5,11 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Field;
 use Illuminate\Http\Request;
+use App\Http\Requests\API\V1\Sensor\AddRequest;
+use App\Http\Requests\API\V1\Sensor\EditRequest;
+use App\Http\Requests\API\V1\Sensor\SensorValueRequest;
+use App\Http\Requests\API\V1\Sensor\SensorDetailAddRequest;
+use App\Http\Requests\API\V1\Sensor\SensorDetailEditRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -41,22 +46,11 @@ class SensorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Sensor\AddRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function add(Request $request, Field $field)
+    public function add(AddRequest $request, Field $field)
     {   
-        $data = $request->only('name', 'type');
-        $validator = Validator::make($data, [
-            'name' => 'required|string',
-            'type' => 'required|string',
-            // 'field_id' => 'required|numeric',
-            // 'user_id' => 'required|numeric',
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
 
         $newSensor = Sensor::firstOrCreate([
             'name' => $request->name,
@@ -82,7 +76,7 @@ class SensorController extends Controller
     }
 
     // 詳細
-    public function detail(Request $request, Sensor $sensor)
+    public function detail(Sensor $sensor)
     {
         $sensor->load('details');
         return response()->json([
@@ -97,7 +91,7 @@ class SensorController extends Controller
      * @param  Sensor $sensor
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request, Sensor $sensor)
+    public function delete(Sensor $sensor)
     {
         $sensor->delete();
         return response()->json([
@@ -109,11 +103,11 @@ class SensorController extends Controller
     /**
      * Update the specified sensor in DB.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Sensor\EditRequest  $request
      * @param  Sensor $sensor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Sensor $sensor)
+    public function edit(EditRequest $request, Sensor $sensor)
     {
         $sensor->update($request->all());
         return response()->json([
@@ -127,11 +121,11 @@ class SensorController extends Controller
     /**
      * Save Sensor Values.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Sensor\SensorValueRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function save_sensor_values(Request $request, $id)
+    public function saveSensorValues(SensorValueRequest $request, $id)
     {
         // Update sensor values
         $sensor = Sensor::find($id);
@@ -160,7 +154,7 @@ class SensorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_sensor_values($id)
+    public function getSensorValues($id)
     {
         // Get sensor value by id
         $sensor = Sensor::find($id);
@@ -186,24 +180,11 @@ class SensorController extends Controller
     /**
      * Store a newly created sensor detail in DB.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\API\V1\Sensor\SensorDetailAddRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function add_sensor_detail(Request $request)
+    public function addSensorDetail(SensorDetailAddRequest $request)
     {   
-        $data = $request->only('name', 'type', 'sensor_id', 'precision', 'unit');
-        $validator = Validator::make($data, [
-            'sensor_id' => 'required|numeric',
-            'type' => 'required|string',
-            'name' => 'required|string',
-            'precision' => 'required|numeric',
-            'unit' => 'required|string'
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
-
         $newSensorDetail = SensorDetail::create([
             'sensor_id' => $request->sensor_id,
             'type' => $request->type,
@@ -219,7 +200,7 @@ class SensorController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function edit_sensor_detail(Request $request, $id)
+    public function editSensorDetail(SensorDetailEditRequest $request, $id)
     {
         // Sensor Detail update with request data
         $sensor_detail = SensorDetail::find($id);
@@ -239,7 +220,7 @@ class SensorController extends Controller
         }
     }
 
-    public function delete_sensor_detail(Request $request, $id)
+    public function deleteSensorDetail($id)
     {
         // Sensor Detail delete by id
         $sensor_detail = SensorDetail::find($id);
@@ -265,7 +246,7 @@ class SensorController extends Controller
      * @param  int  $field_id
      * @return \Illuminate\Http\Response
      */
-    public function get_sensor_by_field($field_id)
+    public function getSensorByField($field_id)
     {
         // Get Sensor by field id
         $sensors = Sensor::where('field_id', '=', $field_id)->get();
