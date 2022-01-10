@@ -55,6 +55,8 @@ return [
                 "unit" => "°C",
                 "measuring_range_lower_limit" => -20,
                 "measuring_range_upper_limit" => 80,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
             [
                 "type" => "humidity",
@@ -65,6 +67,8 @@ return [
                 "unit" => "%",
                 "measuring_range_lower_limit" => 0,
                 "measuring_range_upper_limit" => 100,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
         ],
         'CO2' => [
@@ -77,6 +81,8 @@ return [
                 "unit" => "ppm",
                 "measuring_range_lower_limit" => 0,
                 "measuring_range_upper_limit" => 9999,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
         ],
         'O2' => [
@@ -89,6 +95,8 @@ return [
                 "unit" => "%",
                 "measuring_range_lower_limit" => 10,
                 "measuring_range_upper_limit" => 30,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
         ],
         'water_temperature' => [
@@ -101,6 +109,8 @@ return [
                 "unit" => "°C",
                 "measuring_range_lower_limit" => null,
                 "measuring_range_upper_limit" => null,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
         ],
         'water_gauge' => [
@@ -113,6 +123,8 @@ return [
                 "unit" => "%",
                 "measuring_range_lower_limit" => 0,
                 "measuring_range_upper_limit" => 100,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
         ],
         'pH' => [
@@ -125,6 +137,8 @@ return [
                 "unit" => "段階",
                 "measuring_range_lower_limit" => 0,
                 "measuring_range_upper_limit" => 14,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
         ],
         'illuminometer' => [
@@ -137,6 +151,8 @@ return [
                 "unit" => "lux",
                 "measuring_range_lower_limit" => null,
                 "measuring_range_upper_limit" => null,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
         ],
         'soil_moisture' => [
@@ -149,6 +165,8 @@ return [
                 "unit" => "mS/cm",
                 "measuring_range_lower_limit" => null,
                 "measuring_range_upper_limit" => null,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
             [
                 "type" => "volume_water_content",
@@ -159,6 +177,8 @@ return [
                 "unit" => "°C",
                 "measuring_range_lower_limit" => null,
                 "measuring_range_upper_limit" => null,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
             [
                 "type" => "EC",
@@ -169,6 +189,8 @@ return [
                 "unit" => "pF",
                 "measuring_range_lower_limit" => null,
                 "measuring_range_upper_limit" => null,
+                "lower_limit" => 0,
+                "upper_limit" => 0,
             ],
         ],
     ],

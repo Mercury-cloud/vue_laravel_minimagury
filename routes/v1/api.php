@@ -47,10 +47,10 @@ Route::middleware('auth:api')->group(function(){
     Route::get('sensor/detail/{sensor}', [SensorController::class, 'detail']);
     Route::delete('sensor/delete/{sensor}', [SensorController::class, 'delete']);
     Route::post('sensor/edit/{sensor}', [SensorController::class, 'edit']);
+    Route::post('sensor/detail/edit/{id}', [SensorController::class, 'detailEdit']);
+    Route::post('sensor/{sensor}/detail/edit/{sensor_detail}', [SensorController::class, 'detailEdit']);
     Route::post('sensor-values-save/{id}', [SensorController::class, 'saveSensorValues']);
     Route::get('sensor-values-get/{id}', [SensorController::class, 'getSensorValues']);
-    Route::post('sensor-detail-add', [SensorController::class, 'addSensorDetail']);
-    Route::post('sensor-detail-edit/{id}', [SensorController::class, 'editSensorDetail']);
     Route::delete('sensor-detail-delete/{id}', [SensorController::class, 'deleteSensorDetail']);
     Route::get('sensor-get-by-field/{field_id}', [SensorController::class, 'getSensorByField']);
 
